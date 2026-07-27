@@ -74,7 +74,7 @@ function refreshCartUrl(cartLink) {
 
   if (variantId) {
     /* REPLACE WITH SHOPIFY VARIANT ID */
-    cartLink.href = `https://rovagear.myshopify.com/cart/${variantId}:${qty}?checkout=true`;
+    cartLink.href = `https://rova-9384.myshopify.com/cart/${variantId}:${qty}?checkout=true`;
   }
 }
 
