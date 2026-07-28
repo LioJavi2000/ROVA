@@ -5,6 +5,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   initMobileNav();
   initAccordion();
+  initColorSelector();
   initSizeSelector();
   initQuantitySelector();
   setActiveNav();
@@ -44,6 +45,38 @@ function initAccordion() {
   });
 }
 
+/* --- Color Selector ---------------------------- */
+function initColorSelector() {
+  const swatches    = document.querySelectorAll('.color-swatch');
+  const cartLink    = document.querySelector('.add-to-cart-link');
+  const mainImg     = document.getElementById('gallery-main-img');
+  const firstThumb  = document.querySelector('.pdp-thumb img');
+  const colorLabel  = document.querySelector('.selected-color-name');
+
+  if (!swatches.length) return;
+
+  swatches.forEach(swatch => {
+    swatch.addEventListener('click', () => {
+      swatches.forEach(s => s.classList.remove('selected'));
+      swatch.classList.add('selected');
+
+      if (colorLabel) colorLabel.textContent = swatch.dataset.colorName;
+      const img = swatch.dataset.img;
+      if (img && mainImg)    mainImg.src    = img;
+      if (img && firstThumb) firstThumb.src = img;
+
+      refreshCartUrl(cartLink);
+    });
+  });
+
+  // Auto-select first swatch and sync label
+  const first = swatches[0];
+  if (first) {
+    first.classList.add('selected');
+    if (colorLabel) colorLabel.textContent = first.dataset.colorName;
+  }
+}
+
 /* --- Size Selector ----------------------------- */
 function initSizeSelector() {
   const pills     = document.querySelectorAll('.size-pill');
@@ -67,15 +100,26 @@ function initSizeSelector() {
 
 function refreshCartUrl(cartLink) {
   if (!cartLink) return;
-  const selected = document.querySelector('.size-pill.selected');
-  if (!selected) return;
-
-  const variantId = selected.dataset.variantId;
   const qty = parseInt(document.querySelector('.qty-display')?.textContent || '1', 10);
 
-  if (variantId) {
-    /* REPLACE WITH SHOPIFY VARIANT ID */
-    cartLink.href = `https://rova-9384.myshopify.com/cart/${variantId}:${qty}`;
+  const selectedColor = document.querySelector('.color-swatch.selected');
+  const selectedSize  = document.querySelector('.size-pill.selected');
+
+  // Color + size product (harness)
+  if (selectedColor && selectedSize) {
+    try {
+      const variants  = JSON.parse(selectedColor.dataset.variants || '{}');
+      const variantId = variants[selectedSize.dataset.size];
+      if (variantId) {
+        cartLink.href = `https://rova-9384.myshopify.com/cart/${variantId}:${qty}`;
+        return;
+      }
+    } catch (e) {}
+  }
+
+  // Size-only product (boots)
+  if (selectedSize?.dataset.variantId) {
+    cartLink.href = `https://rova-9384.myshopify.com/cart/${selectedSize.dataset.variantId}:${qty}`;
   }
 }
 

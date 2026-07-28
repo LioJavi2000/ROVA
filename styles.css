@@ -695,6 +695,35 @@ footer {
   cursor: not-allowed;
 }
 
+/* Color Swatches */
+.color-swatches {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+.color-swatch {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2.5px solid transparent;
+  padding: 3px;
+  cursor: pointer;
+  background: transparent;
+  transition: transform 0.15s, border-color 0.15s;
+}
+
+.color-swatch:hover { transform: scale(1.1); }
+.color-swatch.selected { border-color: var(--bark); }
+
+.swatch-dot {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
 /* Quantity */
 .quantity-row {
   display: flex;
