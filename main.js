@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setActiveNav();
   initScrollFades();
   initGallery();
+  initPixelEvents();
 });
 
 /* --- Mobile Nav -------------------------------- */
@@ -132,6 +133,15 @@ function initGallery() {
   thumbs.forEach((thumb, i) => thumb.addEventListener('click', () => setActive(i)));
   if (prevBtn) prevBtn.addEventListener('click', () => setActive(current - 1));
   if (nextBtn) nextBtn.addEventListener('click', () => setActive(current + 1));
+}
+
+/* --- Meta Pixel — Checkout Intent -------------- */
+function initPixelEvents() {
+  document.querySelectorAll('.add-to-cart-link').forEach(link => {
+    link.addEventListener('click', () => {
+      if (typeof fbq === 'function') fbq('track', 'InitiateCheckout');
+    });
+  });
 }
 
 /* --- Scroll Fade-Up Animations ----------------- */
