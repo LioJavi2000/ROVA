@@ -69,11 +69,14 @@ function initColorSelector() {
     });
   });
 
-  // Auto-select first swatch and sync label
-  const first = swatches[0];
+  // Auto-select first available (non-disabled) swatch
+  const first = document.querySelector('.color-swatch:not(:disabled)');
   if (first) {
     first.classList.add('selected');
     if (colorLabel) colorLabel.textContent = first.dataset.colorName;
+    const img = first.dataset.img;
+    if (img && mainImg)    mainImg.src    = img;
+    if (img && firstThumb) firstThumb.src = img;
   }
 }
 

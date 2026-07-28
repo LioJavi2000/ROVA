@@ -716,6 +716,20 @@ footer {
 
 .color-swatch:hover { transform: scale(1.1); }
 .color-swatch.selected { border-color: var(--bark); }
+.color-swatch:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  position: relative;
+}
+.color-swatch:disabled::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 44%, #B5A898 44%, #B5A898 56%, transparent 56%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.color-swatch:disabled:hover { transform: none; }
 
 .swatch-dot {
   display: block;
