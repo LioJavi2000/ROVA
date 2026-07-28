@@ -117,6 +117,12 @@ function refreshCartUrl(cartLink) {
     } catch (e) {}
   }
 
+  // Color-only product (bowl)
+  if (selectedColor?.dataset.variantId) {
+    cartLink.href = `https://rova-9384.myshopify.com/cart/${selectedColor.dataset.variantId}:${qty}`;
+    return;
+  }
+
   // Size-only product (boots)
   if (selectedSize?.dataset.variantId) {
     cartLink.href = `https://rova-9384.myshopify.com/cart/${selectedSize.dataset.variantId}:${qty}`;

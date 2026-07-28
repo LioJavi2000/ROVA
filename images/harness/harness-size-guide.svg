@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 1000" width="750" height="1000">
+
+  <!-- Background -->
+  <rect width="750" height="1000" fill="#F0E8DA"/>
+
+  <!-- Brand -->
+  <text x="375" y="58" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="24" font-weight="bold" fill="#2B1F14" letter-spacing="3">Rova</text>
+
+  <!-- Title -->
+  <text x="375" y="112" text-anchor="middle" font-family="'DM Sans', Arial, sans-serif" font-size="44" font-weight="700" fill="#2B1F14" letter-spacing="1">HARNESS SIZE GUIDE</text>
+
+  <!-- Column guide lines in header zone -->
+  <line x1="116" y1="138" x2="116" y2="460" stroke="#C8BFB5" stroke-width="1"/>
+  <line x1="316" y1="138" x2="316" y2="460" stroke="#C8BFB5" stroke-width="1"/>
+  <line x1="516" y1="138" x2="516" y2="460" stroke="#C8BFB5" stroke-width="1"/>
+  <line x1="694" y1="138" x2="694" y2="460" stroke="#C8BFB5" stroke-width="1"/>
+  <line x1="56" y1="138" x2="56" y2="460" stroke="#C8BFB5" stroke-width="1"/>
+
+  <!-- Header background strip (just for column labels) -->
+  <rect x="56" y="138" width="638" height="54" fill="none"/>
+
+  <!-- Column headers in rust -->
+  <text x="216" y="173" text-anchor="middle" font-family="'DM Sans', Arial, sans-serif" font-size="17" font-weight="700" fill="#C4614A">Chest</text>
+  <text x="416" y="173" text-anchor="middle" font-family="'DM Sans', Arial, sans-serif" font-size="17" font-weight="700" fill="#C4614A">Neck</text>
+  <text x="605" y="173" text-anchor="middle" font-family="'DM Sans', Arial, sans-serif" font-size="17" font-weight="700" fill="#C4614A">Weight</text>
+
+  <!-- Thick bottom rule under headers -->
+  <line x1="56" y1="192" x2="694" y2="192" stroke="#C4614A" stroke-width="2"/>
+
+  <!-- Row 1: S -->
+  <rect x="56" y="192" width="638" height="60" fill="white"/>
+  <line x1="56" y1="252" x2="694" y2="252" stroke="#DDD6CC" stroke-width="1"/>
+  <text x="86" y="228" font-family="'DM Sans', Arial, sans-serif" font-size="18" font-weight="700" fill="#2B1F14">S</text>
+  <text x="216" y="228" text-anchor="middle" font-family="'DM Sans', Arial, sans-serif" font-size="15" fill="#2B1F14">18.5–23.6 in</text>
+  <text x="416" y="228" text-anchor="middle" font-family="'DM Sans', Arial, sans-serif" font-size="15" fill="#2B1F14">12.6–20.5 in</text>
+  <text x="605" y="228" text-anchor="middle" font-family="'DM Sans', Arial, sans-serif" font-size="15" fill="#2B1F14">9–16.5 lb</text>
+
+  <!-- Row 2: M -->
+  <rect x="56" y="252" width="638" height="60" fill="#F8F4EF"/>
+  <line x1="56" y1="312" x2="694" y2="312" stroke="#DDD6CC" stroke-width="1"/>
+  <text x="86" y="288" font-family="'DM Sans', Arial, sans-serif" font-size="18" font-weight="700" fill="#2B1F14">M</text>
+  <text x="216" y="288" text-anchor="middle" font-family="'DM Sans', Arial, sans-serif" font-size="15" fill="#2B1F14">20.8–27.5 in</text>
+  <text x="416" y="288" text-anchor="middle" font-family="'DM Sans', Arial, sans-serif" font-size="15" fill="#2B1F14">13.4–21.6 in</text>
+  <text x="605" y="288" text-anchor="middle" font-family="'DM Sans', Arial, sans-serif" font-size="15" fill="#2B1F14">16.5–40 lb</text>
+
+  <!-- Row 3: L -->
+  <rect x="56" y="312" width="638" height="60" fill="white"/>
+  <line x1="56" y1="372" x2="694" y2="372" stroke="#DDD6CC" stroke-width="1"/>
+  <text x="86" y="348" font-family="'DM Sans', Arial, sans-serif" font-size="18" font-weight="700" fill="#2B1F14">L</text>
+  <text x="216" y="348" text-anchor="middle" font-family="'DM Sans', Arial, sans-serif" font-size="15" fill="#2B1F14">24.4–32.7 in</text>
+  <text x="416" y="348" text-anchor="middle" font-family="'DM Sans', Arial, sans-serif" font-size="15" fill="#2B1F14">16.5–26.4 in</text>
+  <text x="605" y="348" text-anchor="middle" font-family="'DM Sans', Arial, sans-serif" font-size="15" fill="#2B1F14">40–66 lb</text>
+
+  <!-- Row 4: XL -->
+  <rect x="56" y="372" width="638" height="60" fill="#F8F4EF"/>
+  <line x1="56" y1="432" x2="694" y2="432" stroke="#DDD6CC" stroke-width="1"/>
+  <text x="86" y="408" font-family="'DM Sans', Arial, sans-serif" font-size="18" font-weight="700" fill="#2B1F14">XL</text>
+  <text x="216" y="408" text-anchor="middle" font-family="'DM Sans', Arial, sans-serif" font-size="15" fill="#2B1F14">30.3–39.3 in</text>
+  <text x="416" y="408" text-anchor="middle" font-family="'DM Sans', Arial, sans-serif" font-size="15" fill="#2B1F14">19.7–34.2 in</text>
+  <text x="605" y="408" text-anchor="middle" font-family="'DM Sans', Arial, sans-serif" font-size="15" fill="#2B1F14">66–110 lb</text>
+
+  <!-- Bottom rule -->
+  <line x1="56" y1="432" x2="694" y2="432" stroke="#C4614A" stroke-width="2"/>
+
+  <!-- Table outer border -->
+  <rect x="56" y="138" width="638" height="294" fill="none" stroke="#C8BFB5" stroke-width="1.5"/>
+
+  <!-- Divider -->
+  <line x1="56" y1="476" x2="694" y2="476" stroke="#C8BFB5" stroke-width="1"/>
+
+  <!-- Dog diagrams area -->
+  <!-- Left dog: Neck measurement -->
+  <!-- Dog body outline (simplified side view facing right) -->
+  <g transform="translate(56, 490)">
+    <!-- Description text -->
+    <text x="130" y="22" text-anchor="middle" font-family="'DM Sans', Arial, sans-serif" font-size="13" fill="#2B1F14">Measure around the</text>
+    <text x="130" y="40" text-anchor="middle" font-family="'DM Sans', Arial, sans-serif" font-size="13" fill="#2B1F14">base of the neck.</text>
+
+    <!-- Dog silhouette (simple outline, facing right, side profile) -->
+    <!-- Body -->
+    <ellipse cx="140" cy="260" rx="100" ry="60" fill="none" stroke="#6B7060" stroke-width="2.5"/>
+    <!-- Neck -->
+    <path d="M 195,215 Q 210,175 230,165 Q 250,155 260,165 Q 270,175 265,200" fill="none" stroke="#6B7060" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- Head -->
+    <ellipse cx="268" cy="215" rx="35" ry="28" fill="none" stroke="#6B7060" stroke-width="2.5"/>
+    <!-- Ear -->
+    <path d="M 280,192 Q 298,178 295,198 Q 292,210 280,208" fill="none" stroke="#6B7060" stroke-width="2.5"/>
+    <!-- Snout -->
+    <path d="M 290,220 L 308,224 Q 312,228 308,230 L 290,228" fill="none" stroke="#6B7060" stroke-width="2"/>
+    <!-- Eye -->
+    <circle cx="278" cy="210" r="3" fill="#6B7060"/>
+    <!-- Front legs -->
+    <line x1="105" y1="315" x2="95" y2="390" stroke="#6B7060" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="135" y1="318" x2="128" y2="390" stroke="#6B7060" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- Rear legs -->
+    <line x1="178" y1="315" x2="185" y2="390" stroke="#6B7060" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="200" y1="312" x2="210" y2="390" stroke="#6B7060" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- Paws -->
+    <path d="M 82,390 Q 82,398 95,398 Q 108,398 108,390" fill="none" stroke="#6B7060" stroke-width="2"/>
+    <path d="M 115,390 Q 115,398 128,398 Q 141,398 141,390" fill="none" stroke="#6B7060" stroke-width="2"/>
+    <path d="M 172,390 Q 172,398 185,398 Q 198,398 198,390" fill="none" stroke="#6B7060" stroke-width="2"/>
+    <path d="M 197,390 Q 197,398 210,398 Q 223,398 223,390" fill="none" stroke="#6B7060" stroke-width="2"/>
+    <!-- Tail -->
+    <path d="M 43,240 Q 20,210 35,190 Q 50,175 55,200" fill="none" stroke="#6B7060" stroke-width="2.5" stroke-linecap="round"/>
+
+    <!-- Neck measurement arc (rust dashed) -->
+    <path d="M 200,200 Q 230,175 255,182 Q 268,188 268,205" fill="none" stroke="#C4614A" stroke-width="2" stroke-dasharray="5,4"/>
+
+    <!-- Neck label -->
+    <text x="218" y="250" font-family="'DM Sans', Arial, sans-serif" font-size="15" fill="#6B7060" font-style="italic">Neck</text>
+  </g>
+
+  <!-- Right dog: Chest measurement -->
+  <g transform="translate(395, 490)">
+    <!-- Description text -->
+    <text x="130" y="22" text-anchor="middle" font-family="'DM Sans', Arial, sans-serif" font-size="13" fill="#2B1F14">Measure around the</text>
+    <text x="130" y="40" text-anchor="middle" font-family="'DM Sans', Arial, sans-serif" font-size="13" fill="#2B1F14">widest part of the chest</text>
+    <text x="130" y="58" text-anchor="middle" font-family="'DM Sans', Arial, sans-serif" font-size="13" fill="#2B1F14">behind the front legs.</text>
+
+    <!-- Dog body outline -->
+    <ellipse cx="140" cy="260" rx="100" ry="60" fill="none" stroke="#6B7060" stroke-width="2.5"/>
+    <path d="M 195,215 Q 210,175 230,165 Q 250,155 260,165 Q 270,175 265,200" fill="none" stroke="#6B7060" stroke-width="2.5" stroke-linecap="round"/>
+    <ellipse cx="268" cy="215" rx="35" ry="28" fill="none" stroke="#6B7060" stroke-width="2.5"/>
+    <path d="M 280,192 Q 298,178 295,198 Q 292,210 280,208" fill="none" stroke="#6B7060" stroke-width="2.5"/>
+    <path d="M 290,220 L 308,224 Q 312,228 308,230 L 290,228" fill="none" stroke="#6B7060" stroke-width="2"/>
+    <circle cx="278" cy="210" r="3" fill="#6B7060"/>
+    <line x1="105" y1="315" x2="95" y2="390" stroke="#6B7060" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="135" y1="318" x2="128" y2="390" stroke="#6B7060" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="178" y1="315" x2="185" y2="390" stroke="#6B7060" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="200" y1="312" x2="210" y2="390" stroke="#6B7060" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M 82,390 Q 82,398 95,398 Q 108,398 108,390" fill="none" stroke="#6B7060" stroke-width="2"/>
+    <path d="M 115,390 Q 115,398 128,398 Q 141,398 141,390" fill="none" stroke="#6B7060" stroke-width="2"/>
+    <path d="M 172,390 Q 172,398 185,398 Q 198,398 198,390" fill="none" stroke="#6B7060" stroke-width="2"/>
+    <path d="M 197,390 Q 197,398 210,398 Q 223,398 223,390" fill="none" stroke="#6B7060" stroke-width="2"/>
+    <path d="M 43,240 Q 20,210 35,190 Q 50,175 55,200" fill="none" stroke="#6B7060" stroke-width="2.5" stroke-linecap="round"/>
+
+    <!-- Chest measurement band (rust dashed, around widest part of chest) -->
+    <ellipse cx="155" cy="300" rx="12" ry="60" fill="none" stroke="#C4614A" stroke-width="2" stroke-dasharray="5,4"/>
+
+    <!-- Chest label -->
+    <text x="168" y="370" font-family="'DM Sans', Arial, sans-serif" font-size="15" fill="#6B7060" font-style="italic">Chest</text>
+  </g>
+
+</svg>
