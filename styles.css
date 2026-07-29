@@ -721,6 +721,26 @@ footer {
   cursor: not-allowed;
   position: relative;
 }
+.color-swatch:disabled::before {
+  content: 'Out of stock';
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bark);
+  color: var(--sand);
+  font-size: 10px;
+  font-weight: 600;
+  white-space: nowrap;
+  padding: 4px 8px;
+  border-radius: 3px;
+  letter-spacing: 0.02em;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s;
+  z-index: 10;
+}
+.color-swatch:disabled:hover::before { opacity: 1; }
 .color-swatch:disabled::after {
   content: '';
   position: absolute;
@@ -1547,6 +1567,28 @@ footer {
   cursor: not-allowed;
   position: relative;
 }
+
+.qa-swatch.oos::before {
+  content: 'Out of stock';
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bark);
+  color: var(--sand);
+  font-size: 10px;
+  font-weight: 600;
+  white-space: nowrap;
+  padding: 4px 8px;
+  border-radius: 3px;
+  letter-spacing: 0.02em;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s;
+  z-index: 30;
+}
+
+.qa-swatch.oos:hover::before { opacity: 1; }
 
 .qa-swatch.oos::after {
   content: '';
