@@ -65,6 +65,41 @@ const CATALOG = [
     ],
     sizes: [],
   },
+  // TODO: add variantId and price once Shopify variants and pricing are confirmed
+  {
+    variantId: '',
+    name:  'Rova Rove Sunglasses',
+    price: 0,
+    img:   'assets/images/rova-rove/rove-front.jpg',
+    href:  'rove.html',
+    option: 'Navy / Black',
+    desc:  'TR-90 sport-square frame. TAC polarized UV400. All-day outdoor comfort.',
+    colors: [
+      { name: 'Navy / Black',       dot: '#1A2744', img: 'assets/images/rova-rove/rove-front.jpg',           variantId: '' },
+      { name: 'Navy / Blue Mirror', dot: '#2255AA', img: 'assets/images/rova-rove/rove-navy-blue-mirror.jpg', variantId: '' },
+      { name: 'Red / Tea',          dot: '#C8302A', img: 'assets/images/rova-rove/rove-red-tea.jpg',          variantId: '' },
+      { name: 'All Gray',           dot: '#7A7A7A', img: 'assets/images/rova-rove/rove-gray.jpg',             variantId: '' },
+      { name: 'All Black',          dot: '#1C1C1C', img: 'assets/images/rova-rove/rove-black.jpg',            variantId: '' },
+    ],
+    sizes: [],
+  },
+  // TODO: add variantId and price once Shopify variants and pricing are confirmed
+  {
+    variantId: '',
+    name:  'Rova Ray Sunglasses',
+    price: 0,
+    img:   'assets/images/rova-ray/ray-front.jpg',
+    href:  'ray.html',
+    option: 'Black / Gray',
+    desc:  'Vintage retro square. Polarized UV400. 60mm coverage. Sits well on all face shapes.',
+    colors: [
+      { name: 'Black / Gray',           dot: '#1C1C1C', img: 'assets/images/rova-ray/ray-front.jpg',          variantId: '' },
+      { name: 'Leopard / Tea',          dot: '#7B4F2E', img: 'assets/images/rova-ray/ray-leopard-tea.jpg',    variantId: '' },
+      { name: 'Pink',                   dot: '#E879A0', img: 'assets/images/rova-ray/ray-pink.jpg',           variantId: '' },
+      { name: 'Black / Purple Gradient',dot: '#7C30C8', img: 'assets/images/rova-ray/ray-purple-gradient.jpg', variantId: '' },
+    ],
+    sizes: [],
+  },
 ];
 
 /* quick-add state */
@@ -327,9 +362,11 @@ function buildCheckoutUrl() {
 
 function getRecommendedProducts() {
   const page    = window.location.pathname.split('/').pop() || 'index.html';
-  const pageMap = { 'harnesses.html': 0, 'boots.html': 1, 'slow-feeder.html': 2 };
+  const pageMap = { 'harnesses.html': 0, 'boots.html': 1, 'slow-feeder.html': 2, 'rove.html': 3, 'ray.html': 4 };
   const exclude = pageMap[page];
-  return CATALOG.map((p, i) => ({ ...p, catalogIdx: i })).filter((_, i) => i !== exclude);
+  return CATALOG
+    .map((p, i) => ({ ...p, catalogIdx: i }))
+    .filter((p, i) => i !== exclude && p.variantId); // only show products with confirmed Shopify variant IDs
 }
 
 function renderRecsHTML() {
@@ -489,17 +526,19 @@ function closeQuickAdd() {
 function getQuickAddVariantId() {
   const prod  = CATALOG[qaState.idx];
   if (!prod) return null;
-  const color = prod.colors[qaState.colorIdx];
+  const color   = prod.colors[qaState.colorIdx];
   const sizeKey = qaState.sizeKey;
 
+  let id = null;
   // harness: color has variants map, look up by size key
-  if (color?.variants && sizeKey) return color.variants[sizeKey] || null;
+  if (color?.variants && sizeKey) id = color.variants[sizeKey] || null;
   // bowl: color has variantId directly
-  if (color?.variantId) return color.variantId;
+  else if (color?.variantId) id = color.variantId;
   // boots: sizeKey IS the variantId
-  if (sizeKey) return sizeKey;
+  else if (sizeKey) id = sizeKey;
 
-  return null;
+  // only return numeric Shopify IDs — rejects empty strings and TODO placeholders
+  return (id && /^\d+$/.test(String(id))) ? id : null;
 }
 
 function renderQuickAddPanel() {
