@@ -3,10 +3,72 @@
    ================================================ */
 
 const CATALOG = [
-  { variantId: '51666422563111', name: 'No-Pull Harness',     price: 52, img: 'images/harness/harness-hero.png', href: 'harnesses.html',  option: 'Black / S' },
-  { variantId: '51666394251559', name: 'Paw Protection Boots', price: 58, img: 'images/boots/boots-hero.png',    href: 'boots.html',       option: 'Size 2'    },
-  { variantId: '51666427642151', name: 'Slow Feeder Bowl',    price: 45, img: 'images/bowl/bowl-hero.png',       href: 'slow-feeder.html', option: 'Pink'      }
+  {
+    variantId: '51666422563111',
+    name:  'No-Pull Harness',
+    price: 52,
+    img:   'images/harness/harness-hero.png',
+    href:  'harnesses.html',
+    option: 'Black / S',
+    desc:  'Front D-ring + dual clip, padded mesh, 5-point adjustable. Redirects pulling on day one.',
+    colors: [
+      { name: 'Black',  dot: '#1C1C1C', img: 'images/harness/harness-black.png',  variants: { s:'51666422563111', m:'51666422595879', l:'51666422628647', xl:'51666422432039' } },
+      { name: 'Green',  dot: '#4ED220', img: 'images/harness/harness-green.png',  variants: { s:'51666422464807', m:'51666422497575', l:'51666422530343', xl:'51666422300967' } },
+      { name: 'Blue',   dot: '#1952C8', img: 'images/harness/harness-blue.png',   variants: { s:'51666422104359', m:'51666422137127', l:'51666422169895', xl:'51666421940519' } },
+      { name: 'Red',    dot: '#D42B2B', img: 'images/harness/harness-red.png',    variants: { s:'51666421973287', m:'51666422006055', l:'51666422038823', xl:'51666421809447' } },
+      { name: 'Orange', dot: '#F07820', img: 'images/harness/harness-orange.png', variants: { s:'51666421842215', m:'51666421874983', l:'51666421907751', xl:'51666421678375' } },
+      { name: 'Pink',   dot: '#E82898', img: 'images/harness/harness-pink.png',   variants: { s:'51666422333735', m:'51666422366503', l:'51666422399271', xl:'51666422202663' } },
+      { name: 'Rosey',  dot: '#BE6A9A', img: 'images/harness/harness-rosey.png',  variants: { s:'51666421711143', m:'51666421743911', l:'51666421776679', xl:'51666421645607' } },
+      { name: 'Purple', dot: '#7C30C8', img: 'images/harness/harness-purple.png', variants: { s:'51666421612839', m:'51666422235431', l:'51666422268199', xl:'51666422071591' } },
+    ],
+    sizes: [
+      { label: 'S',  key: 's',  guide: '10–25 lbs' },
+      { label: 'M',  key: 'm',  guide: '25–50 lbs' },
+      { label: 'L',  key: 'l',  guide: '50–75 lbs' },
+      { label: 'XL', key: 'xl', guide: '75+ lbs'   },
+    ],
+  },
+  {
+    variantId: '51666394251559',
+    name:  'Paw Protection Boots',
+    price: 58,
+    img:   'images/boots/boots-hero.png',
+    href:  'boots.html',
+    option: 'Size 2',
+    desc:  'Velcro strap that actually stays on. Hot pavement, ice, salt, mud, recovery. Set of 4.',
+    colors: [],
+    sizes: [
+      { label: 'Size 2', key: '51666394251559', guide: '~1.5" paw' },
+      { label: 'Size 3', key: '51666394284327', guide: '~1.75" paw' },
+      { label: 'Size 4', key: '51666394317095', guide: '~2" paw'   },
+      { label: 'Size 5', key: '51666394349863', guide: '~2.25" paw' },
+      { label: 'Size 6', key: '51666394382631', guide: '~2.5" paw' },
+      { label: 'Size 7', key: '51666394415399', guide: '~2.75" paw' },
+      { label: 'Size 8', key: '51666394448167', guide: '~3" paw'   },
+    ],
+    sizeNote: 'Measure the widest part of paw while bearing weight.',
+  },
+  {
+    variantId: '51666427642151',
+    name:  'Slow Feeder Bowl',
+    price: 45,
+    img:   'images/bowl/bowl-hero.png',
+    href:  'slow-feeder.html',
+    option: 'Pink',
+    desc:  'Silicone maze slows eating 5–10x. BPA-free, dishwasher safe, non-slip base. One size.',
+    colors: [
+      { name: 'Pink',     dot: '#E879A0', variantId: '51666427642151' },
+      { name: 'Green',    dot: '#48C574', variantId: '51666427674919' },
+      { name: 'Blue',     dot: '#2D6BC9', variantId: '51666427707687', disabled: true },
+      { name: 'Sky Blue', dot: '#5ABCE0', variantId: '51666427740455', disabled: true },
+      { name: 'Yellow',   dot: '#F4C84F', variantId: '51666427773223' },
+    ],
+    sizes: [],
+  },
 ];
+
+/* quick-add state */
+let qaState = { idx: -1, colorIdx: 0, sizeKey: null };
 
 document.addEventListener('DOMContentLoaded', () => {
   initMobileNav();
@@ -35,7 +97,7 @@ function initMobileNav() {
   if (closeBtn) closeBtn.addEventListener('click', close);
   mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
 
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') { close(); closeCart(); } });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { close(); closeCart(); closeQuickAdd(); } });
 }
 
 /* --- Accordion --------------------------------- */
@@ -113,23 +175,12 @@ function refreshCartUrl(cartLink, buyNowLink) {
   const selectedSize  = document.querySelector('.size-pill.selected');
   let variantId       = null;
 
-  // Color + size (harness)
   if (selectedColor && selectedSize) {
-    try {
-      const variants = JSON.parse(selectedColor.dataset.variants || '{}');
-      variantId = variants[selectedSize.dataset.size];
-    } catch (e) {}
+    try { variantId = JSON.parse(selectedColor.dataset.variants || '{}')[selectedSize.dataset.size]; }
+    catch (e) {}
   }
-
-  // Color-only (bowl)
-  if (!variantId && selectedColor?.dataset.variantId) {
-    variantId = selectedColor.dataset.variantId;
-  }
-
-  // Size-only (boots)
-  if (!variantId && selectedSize?.dataset.variantId) {
-    variantId = selectedSize.dataset.variantId;
-  }
+  if (!variantId && selectedColor?.dataset.variantId) variantId = selectedColor.dataset.variantId;
+  if (!variantId && selectedSize?.dataset.variantId)  variantId = selectedSize.dataset.variantId;
 
   if (variantId) {
     const url = `https://rova-9384.myshopify.com/cart/${variantId}:${qty}`;
@@ -262,6 +313,7 @@ function openCart() {
 }
 
 function closeCart() {
+  closeQuickAdd();
   document.getElementById('cart-overlay')?.classList.remove('open');
   document.getElementById('cart-drawer')?.classList.remove('open');
   document.body.style.overflow = '';
@@ -277,7 +329,7 @@ function getRecommendedProducts() {
   const page    = window.location.pathname.split('/').pop() || 'index.html';
   const pageMap = { 'harnesses.html': 0, 'boots.html': 1, 'slow-feeder.html': 2 };
   const exclude = pageMap[page];
-  return CATALOG.filter((_, i) => i !== exclude);
+  return CATALOG.map((p, i) => ({ ...p, catalogIdx: i })).filter((_, i) => i !== exclude);
 }
 
 function renderRecsHTML() {
@@ -290,7 +342,7 @@ function renderRecsHTML() {
         <p class="cart-rec-name">${rec.name}</p>
         <p class="cart-rec-price">$${rec.price}.00</p>
       </div>
-      <button class="btn-quick-add" data-id="${rec.variantId}">Quick Add</button>
+      <button class="btn-quick-add" data-catalog-idx="${rec.catalogIdx}">Quick Add</button>
     </div>
   `).join('');
   return `<p class="cart-recs-title">You Might Also Like</p>${items}`;
@@ -358,11 +410,8 @@ function renderCartDrawer() {
 
   body.querySelectorAll('.btn-quick-add').forEach(btn => {
     btn.addEventListener('click', () => {
-      const rec = CATALOG.find(c => c.variantId === btn.dataset.id);
-      if (!rec) return;
-      addToCart({ ...rec, qty: 1 });
-      btn.textContent = 'Added!';
-      setTimeout(() => renderCartDrawer(), 800);
+      const idx = parseInt(btn.dataset.catalogIdx, 10);
+      openQuickAdd(idx);
     });
   });
 }
@@ -378,6 +427,7 @@ function initCart() {
       </div>
       <div class="cart-drawer-body" id="cart-body"></div>
       <div class="cart-drawer-footer" id="cart-footer"></div>
+      <div class="quick-add-panel" id="quick-add-panel" role="dialog" aria-label="Quick Add"></div>
     </div>
   `);
 
@@ -392,11 +442,10 @@ function initCart() {
     addBtn.addEventListener('click', e => {
       e.preventDefault();
 
-      const name  = document.querySelector('.pdp-name')?.textContent?.trim() || 'Product';
-      const price = parseFloat(document.querySelector('.pdp-price')?.textContent?.replace(/[^0-9.]/g, '') || '0');
-      const img   = document.getElementById('gallery-main-img')?.src || '';
-      const qty   = parseInt(document.querySelector('.qty-display')?.textContent || '1', 10);
-
+      const name      = document.querySelector('.pdp-name')?.textContent?.trim() || 'Product';
+      const price     = parseFloat(document.querySelector('.pdp-price')?.textContent?.replace(/[^0-9.]/g, '') || '0');
+      const img       = document.getElementById('gallery-main-img')?.src || '';
+      const qty       = parseInt(document.querySelector('.qty-display')?.textContent || '1', 10);
       const hrefMatch = addBtn.href.match(/\/cart\/(\d+):/);
       const variantId = hrefMatch ? hrefMatch[1] : '';
 
@@ -412,4 +461,154 @@ function initCart() {
       openCart();
     });
   }
+}
+
+/* =================================================
+   QUICK ADD PANEL
+   ================================================= */
+
+function openQuickAdd(catalogIdx) {
+  const prod = CATALOG[catalogIdx];
+  if (!prod) return;
+
+  const firstAvailableColor = prod.colors.findIndex(c => !c.disabled);
+  qaState = {
+    idx:      catalogIdx,
+    colorIdx: firstAvailableColor >= 0 ? firstAvailableColor : 0,
+    sizeKey:  prod.sizes.length ? prod.sizes[0].key : null,
+  };
+
+  renderQuickAddPanel();
+  document.getElementById('quick-add-panel')?.classList.add('open');
+}
+
+function closeQuickAdd() {
+  document.getElementById('quick-add-panel')?.classList.remove('open');
+}
+
+function getQuickAddVariantId() {
+  const prod  = CATALOG[qaState.idx];
+  if (!prod) return null;
+  const color = prod.colors[qaState.colorIdx];
+  const sizeKey = qaState.sizeKey;
+
+  // harness: color has variants map, look up by size key
+  if (color?.variants && sizeKey) return color.variants[sizeKey] || null;
+  // bowl: color has variantId directly
+  if (color?.variantId) return color.variantId;
+  // boots: sizeKey IS the variantId
+  if (sizeKey) return sizeKey;
+
+  return null;
+}
+
+function renderQuickAddPanel() {
+  const panel = document.getElementById('quick-add-panel');
+  if (!panel) return;
+
+  const prod  = CATALOG[qaState.idx];
+  if (!prod) return;
+
+  const color   = prod.colors[qaState.colorIdx];
+  const sizeObj = prod.sizes.find(s => s.key === qaState.sizeKey);
+  const imgSrc  = color?.img || prod.img;
+
+  /* Color swatches */
+  let colorsHTML = '';
+  if (prod.colors.length) {
+    const swatchItems = prod.colors.map((c, i) => `
+      <button class="qa-swatch ${i === qaState.colorIdx ? 'selected' : ''} ${c.disabled ? 'oos' : ''}"
+        ${c.disabled ? 'disabled' : ''}
+        data-ci="${i}"
+        aria-label="${c.name}${c.disabled ? ' — Out of Stock' : ''}">
+        <span class="qa-swatch-dot" style="background:${c.dot};"></span>
+      </button>
+    `).join('');
+    colorsHTML = `
+      <p class="qa-label">Color: <span id="qa-color-label">${color?.name || ''}</span></p>
+      <div class="qa-swatches">${swatchItems}</div>
+    `;
+  }
+
+  /* Size pills */
+  let sizesHTML = '';
+  let sizeGuideHTML = '';
+  if (prod.sizes.length) {
+    const pillItems = prod.sizes.map(s => `
+      <button class="qa-size-pill ${s.key === qaState.sizeKey ? 'selected' : ''}" data-sk="${s.key}">
+        ${s.label}
+      </button>
+    `).join('');
+    sizesHTML = `
+      <p class="qa-label" style="margin-top:14px;">Size</p>
+      <div class="qa-sizes">${pillItems}</div>
+    `;
+    sizeGuideHTML = `
+      <div class="qa-size-guide">
+        ${prod.sizes.map(s => `<span><strong>${s.label}</strong> ${s.guide}</span>`).join('')}
+        ${prod.sizeNote ? `<p class="qa-size-note">${prod.sizeNote}</p>` : ''}
+      </div>
+    `;
+  }
+
+  panel.innerHTML = `
+    <div class="qa-header">
+      <img class="qa-img" id="qa-img" src="${imgSrc}" alt="${prod.name}">
+      <div class="qa-header-info">
+        <p class="qa-name">${prod.name}</p>
+        <p class="qa-price">$${prod.price}.00</p>
+        <p class="qa-desc">${prod.desc}</p>
+      </div>
+      <button class="qa-close" id="qa-close" aria-label="Close">&#x2715;</button>
+    </div>
+    <div class="qa-divider"></div>
+    ${colorsHTML}
+    ${sizesHTML}
+    ${sizeGuideHTML}
+    <button class="qa-submit" id="qa-submit">Add to Cart</button>
+  `;
+
+  document.getElementById('qa-close')?.addEventListener('click', closeQuickAdd);
+
+  panel.querySelectorAll('.qa-swatch').forEach(btn => {
+    btn.addEventListener('click', () => {
+      qaState.colorIdx = parseInt(btn.dataset.ci, 10);
+      const c = CATALOG[qaState.idx].colors[qaState.colorIdx];
+      /* update image + label without full re-render */
+      const qImg = document.getElementById('qa-img');
+      if (qImg && c.img) qImg.src = c.img;
+      const lbl = document.getElementById('qa-color-label');
+      if (lbl) lbl.textContent = c.name;
+      panel.querySelectorAll('.qa-swatch').forEach((s, i) =>
+        s.classList.toggle('selected', i === qaState.colorIdx));
+    });
+  });
+
+  panel.querySelectorAll('.qa-size-pill').forEach(btn => {
+    btn.addEventListener('click', () => {
+      qaState.sizeKey = btn.dataset.sk;
+      panel.querySelectorAll('.qa-size-pill').forEach(p =>
+        p.classList.toggle('selected', p.dataset.sk === qaState.sizeKey));
+    });
+  });
+
+  document.getElementById('qa-submit')?.addEventListener('click', () => {
+    const variantId = getQuickAddVariantId();
+    if (!variantId) return;
+
+    const prod    = CATALOG[qaState.idx];
+    const color   = prod.colors[qaState.colorIdx];
+    const sizeObj = prod.sizes.find(s => s.key === qaState.sizeKey);
+    const img     = color?.img || prod.img;
+
+    let option = '';
+    if (color && sizeObj)    option = `${color.name} / ${sizeObj.label}`;
+    else if (color)          option = color.name;
+    else if (sizeObj)        option = sizeObj.label;
+
+    addToCart({ variantId, name: prod.name, price: prod.price, img, qty: 1, option });
+    if (typeof fbq === 'function') fbq('track', 'AddToCart');
+    closeQuickAdd();
+    renderCartDrawer();
+  });
 }
