@@ -47,9 +47,13 @@
         <a href="our-story.html">Our Story</a>
       </nav>
       <div class="header-actions">
-        <span class="header-icon">Search</span>
-        <span class="header-icon">Account</span>
-        <span class="header-icon">Cart</span>
+        <button class="cart-icon-btn" id="cart-open" aria-label="Open cart">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+          </svg>
+          <span class="cart-count-badge" id="cart-count">0</span>
+        </button>
         <button class="hamburger" aria-label="Open menu" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
@@ -161,6 +165,11 @@
             <a href="https://rova-9384.myshopify.com/cart/51666427642151:1"
                class="btn btn-primary btn-full pdp-add-btn add-to-cart-link">
               Add to Cart — $45.00
+            </a>
+
+            <a href="https://rova-9384.myshopify.com/cart/51666427642151:1"
+               class="btn-buy-now buy-now-link">
+              Buy Now
             </a>
 
             <div class="pdp-trust-list">
