@@ -6,7 +6,7 @@ const CATALOG = [
   {
     variantId: '51666422563111',
     name:  'No-Pull Harness',
-    price: 52,
+    price: 34.98,
     img:   'images/harness/harness-hero.png',
     href:  'harnesses.html',
     option: 'Black / S',
@@ -31,7 +31,7 @@ const CATALOG = [
   {
     variantId: '51666394251559',
     name:  'Paw Protection Boots',
-    price: 58,
+    price: 48.99,
     img:   'images/boots/boots-hero.png',
     href:  'boots.html',
     option: 'Size 2',
@@ -51,7 +51,7 @@ const CATALOG = [
   {
     variantId: '51666427642151',
     name:  'Slow Feeder Bowl',
-    price: 45,
+    price: 26.99,
     img:   'images/bowl/bowl-hero.png',
     href:  'slow-feeder.html',
     option: 'Pink',
@@ -65,29 +65,27 @@ const CATALOG = [
     ],
     sizes: [],
   },
-  // TODO: add variantId and price once Shopify variants and pricing are confirmed
   {
     variantId: '',
     name:  'Rova Rove Sunglasses',
-    price: 0,
+    price: 32.99,
     img:   'assets/images/rova-rove/rove-front.jpg',
     href:  'rove.html',
-    option: 'Navy / Black',
+    option: 'Black Grey',
     desc:  'TR-90 sport-square frame. TAC polarized UV400. All-day outdoor comfort.',
     colors: [
-      { name: 'Navy / Black',       dot: '#1A2744', img: 'assets/images/rova-rove/rove-front.jpg',           variantId: '' },
-      { name: 'Navy / Blue Mirror', dot: '#2255AA', img: 'assets/images/rova-rove/rove-navy-blue-mirror.jpg', variantId: '' },
-      { name: 'Red / Tea',          dot: '#C8302A', img: 'assets/images/rova-rove/rove-red-tea.jpg',          variantId: '' },
-      { name: 'All Gray',           dot: '#7A7A7A', img: 'assets/images/rova-rove/rove-gray.jpg',             variantId: '' },
-      { name: 'All Black',          dot: '#1C1C1C', img: 'assets/images/rova-rove/rove-black.jpg',            variantId: '' },
+      { name: 'Black Grey',    dot: '#1C1C1C', img: 'assets/images/rova-rove/rove-front.jpg',           variantId: '' },
+      { name: 'Blue Grey',     dot: '#2255AA', img: 'assets/images/rova-rove/rove-navy-blue-mirror.jpg', variantId: '' },
+      { name: 'Gradient Tea',  dot: '#A0612A', img: 'assets/images/rova-rove/rove-red-tea.jpg',          variantId: '' },
+      { name: 'Red Grey',      dot: '#8A8A8A', img: 'assets/images/rova-rove/rove-gray.jpg',             variantId: '51743459606823' },
+      { name: 'All Black',     dot: '#1C1C1C', img: 'assets/images/rova-rove/rove-black.jpg',            variantId: '' },
     ],
     sizes: [],
   },
-  // TODO: add variantId and price once Shopify variants and pricing are confirmed
   {
     variantId: '',
     name:  'Rova Ray Sunglasses',
-    price: 0,
+    price: 32.99,
     img:   'assets/images/rova-ray/ray-front.jpg',
     href:  'ray.html',
     option: 'Black / Gray',
@@ -377,7 +375,7 @@ function renderRecsHTML() {
       <img class="cart-rec-img" src="${rec.img}" alt="${rec.name}">
       <div class="cart-rec-info">
         <p class="cart-rec-name">${rec.name}</p>
-        <p class="cart-rec-price">$${rec.price}.00</p>
+        <p class="cart-rec-price">$${Number(rec.price).toFixed(2)}</p>
       </div>
       <button class="btn-quick-add" data-catalog-idx="${rec.catalogIdx}">Quick Add</button>
     </div>
@@ -595,7 +593,7 @@ function renderQuickAddPanel() {
       <img class="qa-img" id="qa-img" src="${imgSrc}" alt="${prod.name}">
       <div class="qa-header-info">
         <p class="qa-name">${prod.name}</p>
-        <p class="qa-price">$${prod.price}.00</p>
+        <p class="qa-price">$${Number(prod.price).toFixed(2)}</p>
         <p class="qa-desc">${prod.desc}</p>
       </div>
       <button class="qa-close" id="qa-close" aria-label="Close">&#x2715;</button>
