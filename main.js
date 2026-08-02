@@ -113,7 +113,53 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollFades();
   initGallery();
   initCart();
+  initPrivacyModal();
 });
+
+/* ── Privacy & Terms Modal ─────────────────────── */
+function initPrivacyModal() {
+  const html = `
+    <div class="privacy-overlay" id="privacy-overlay" role="dialog" aria-modal="true" aria-label="Privacy & Terms">
+      <div class="privacy-modal">
+        <div class="privacy-modal-header">
+          <h3>Privacy &amp; Terms</h3>
+          <button class="privacy-modal-close" id="privacy-close" aria-label="Close">&#x2715;</button>
+        </div>
+        <div class="privacy-modal-body">
+          <h4>Privacy Policy</h4>
+          <p>Rova collects personal information — including your name, email address, shipping address, and payment details — solely to process and fulfill your order. We do not sell or rent your personal data to third parties.</p>
+          <p>We use cookies and tracking tools (including Meta Pixel) for site analytics and to deliver relevant advertising. You can disable cookies in your browser settings at any time.</p>
+          <p>Your payment information is processed securely through Shopify. We never store full credit card numbers on our servers.</p>
+          <p>If you'd like to request access to, correction of, or deletion of your personal data, contact us at support@rovagear.com and we'll respond within 30 days.</p>
+
+          <h4>Terms of Service</h4>
+          <p>By placing an order with Rova you confirm that you are at least 18 years of age and that the information you provide is accurate and complete.</p>
+          <p>All prices are listed in USD. We reserve the right to update pricing at any time without prior notice. Orders are subject to product availability.</p>
+          <p>We offer free exchanges on your first order if the product doesn't fit or arrives damaged. Contact us within 30 days of delivery. Items must be unused and in original condition.</p>
+          <p>Rova is not liable for delays caused by carriers, customs, or events outside our control. Estimated shipping times are provided as a guide only.</p>
+          <p>All product descriptions, images, and specifications are provided in good faith. Colors may vary slightly due to screen calibration.</p>
+          <p>These terms are governed by the laws of the State of Florida. Any disputes will be resolved in the courts of Miami-Dade County, FL.</p>
+          <p style="color:var(--stone); font-size:12px; margin-top:20px;">Last updated: August 2026</p>
+        </div>
+      </div>
+    </div>`;
+  document.body.insertAdjacentHTML('beforeend', html);
+
+  const overlay = document.getElementById('privacy-overlay');
+  document.getElementById('privacy-close').addEventListener('click', closePrivacyModal);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closePrivacyModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closePrivacyModal(); });
+}
+
+function openPrivacyModal() {
+  document.getElementById('privacy-overlay')?.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePrivacyModal() {
+  document.getElementById('privacy-overlay')?.classList.remove('open');
+  document.body.style.overflow = '';
+}
 
 /* --- Mobile Nav -------------------------------- */
 function initMobileNav() {
