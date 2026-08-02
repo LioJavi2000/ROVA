@@ -87,7 +87,7 @@ p { color: var(--bark); }
   position: sticky;
   top: 0;
   z-index: 100;
-  background: #F5F3E6;
+  background: #F5F2E5;
   border-bottom: 1px solid var(--stone);
   height: var(--header-height);
   display: flex;
