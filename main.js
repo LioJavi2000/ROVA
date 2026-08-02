@@ -150,6 +150,24 @@ function initPrivacyModal() {
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closePrivacyModal(); });
 }
 
+function toggleContactDropdown(e) {
+  e.preventDefault();
+  const item = e.currentTarget.closest('.contact-item');
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.contact-item.open').forEach(el => el.classList.remove('open'));
+  if (!wasOpen) {
+    item.classList.add('open');
+    setTimeout(() => {
+      document.addEventListener('click', function handler(ev) {
+        if (!item.contains(ev.target)) {
+          item.classList.remove('open');
+          document.removeEventListener('click', handler);
+        }
+      });
+    }, 0);
+  }
+}
+
 function openPrivacyModal() {
   document.getElementById('privacy-overlay')?.classList.add('open');
   document.body.style.overflow = 'hidden';

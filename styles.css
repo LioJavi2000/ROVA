@@ -1777,7 +1777,29 @@ footer {
   .cart-drawer { width: 100vw; }
 }
 
-/* === 30. PRIVACY & TERMS MODAL ================ */
+/* === 30. CONTACT DROPDOWN ===================== */
+.contact-item { position: relative; }
+.contact-dropdown {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 0;
+  background: #1a1410;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 6px;
+  padding: 10px 14px;
+  white-space: nowrap;
+  z-index: 200;
+}
+.contact-dropdown a {
+  color: #F0E8DA;
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+.contact-dropdown a:hover { text-decoration: underline; }
+.contact-item.open .contact-dropdown { display: block; }
+
+/* === 31. PRIVACY & TERMS MODAL ================ */
 .privacy-overlay {
   position: fixed;
   inset: 0;
