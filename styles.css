@@ -60,14 +60,26 @@ p { color: var(--bark); }
 .announcement-bar {
   background: var(--bark);
   color: var(--sand);
-  text-align: center;
   font-size: 13px;
-  letter-spacing: 0.05em;
-  padding: 0 var(--container-pad);
+  letter-spacing: 0.08em;
+  font-weight: 600;
   height: var(--announce-height);
   display: flex;
   align-items: center;
-  justify-content: center;
+  overflow: hidden;
+}
+.announcement-track {
+  display: flex;
+  width: max-content;
+  animation: announcement-ticker 22s linear infinite;
+}
+.announcement-item {
+  white-space: nowrap;
+  padding: 0 56px;
+}
+@keyframes announcement-ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 /* === 6. HEADER / NAV ========================== */
