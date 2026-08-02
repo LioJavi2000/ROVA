@@ -91,8 +91,8 @@ const CATALOG = [
     desc:  'Vintage retro square. Polarized UV400. 60mm coverage. Sits well on all face shapes.',
     colors: [
       { name: 'Black / Gray',           dot: '#1C1C1C', img: 'assets/images/rova-ray/ray-front.jpg',          variantId: '' },
-      { name: 'Leopard / Tea',          dot: '#7B4F2E', img: 'assets/images/rova-ray/ray-leopard-tea.jpg',    variantId: '' },
-      { name: 'Pink',                   dot: '#E879A0', img: 'assets/images/rova-ray/ray-pink.jpg',           variantId: '' },
+      { name: 'Leopard / Tea',          dot: '#7B4F2E', img: 'assets/images/rova-ray/ray-leopard-tea.jpg',    variantId: '51743439225127' },
+      { name: 'Pink',                   dot: '#E879A0', img: 'assets/images/rova-ray/ray-pink.jpg',           variantId: '51743439290663' },
       { name: 'Black / Purple Gradient',dot: '#7C30C8', img: 'assets/images/rova-ray/ray-purple-gradient.jpg', variantId: '51743439192359' },
     ],
     sizes: [],
