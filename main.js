@@ -75,9 +75,9 @@ const CATALOG = [
     desc:  'TR-90 sport-square frame. TAC polarized UV400. All-day outdoor comfort.',
     colors: [
       { name: 'Black Grey',   dot: '#1C1C1C', img: 'assets/images/rova-rove/rove-front.jpg',           variantId: '51743459639591' },
-      { name: 'Red Grey',     dot: '#8A8A8A', img: 'assets/images/rova-rove/rove-gray.jpg',             variantId: '51743459606823' },
+      { name: 'Red Grey',     dot: 'linear-gradient(90deg,#3A3A3A 50%,#C0210F 50%)', img: 'assets/images/rova-rove/rove-gray.jpg',             variantId: '51743459606823' },
       { name: 'Gradient Tea', dot: '#A0612A', img: 'assets/images/rova-rove/rove-red-tea.jpg',          variantId: '51743459672359' },
-      { name: 'Blue Grey',    dot: '#2255AA', img: 'assets/images/rova-rove/rove-navy-blue-mirror.jpg', variantId: '51743459705127' },
+      { name: 'Blue Grey',    dot: '#0F2D6B', img: 'assets/images/rova-rove/rove-navy-blue-mirror.jpg', variantId: '51743459705127' },
     ],
     sizes: [],
   },
