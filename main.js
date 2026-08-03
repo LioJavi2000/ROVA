@@ -320,20 +320,40 @@ function setActiveNav() {
 
 /* --- PDP Gallery ------------------------------- */
 function initGallery() {
-  const mainImg = document.getElementById('gallery-main-img');
-  const thumbs  = document.querySelectorAll('.pdp-thumb');
-  const prevBtn = document.querySelector('.gallery-arrow.prev');
-  const nextBtn = document.querySelector('.gallery-arrow.next');
+  const mainImg   = document.getElementById('gallery-main-img');
+  const mainVideo = document.getElementById('gallery-main-video');
+  const videoSrc  = document.getElementById('gallery-video-src');
+  const thumbs    = document.querySelectorAll('.pdp-thumb');
+  const prevBtn   = document.querySelector('.gallery-arrow.prev');
+  const nextBtn   = document.querySelector('.gallery-arrow.next');
 
   if (!mainImg || !thumbs.length) return;
 
-  const srcs = Array.from(thumbs).map(t => t.querySelector('img')?.src).filter(Boolean);
   let current = 0;
 
+  function showImage(src) {
+    if (mainVideo) { mainVideo.pause(); mainVideo.classList.remove('active'); }
+    mainImg.src = src;
+    mainImg.style.display = '';
+  }
+
+  function showVideo(src) {
+    mainImg.style.display = 'none';
+    if (videoSrc) videoSrc.src = src;
+    if (mainVideo) { mainVideo.load(); mainVideo.classList.add('active'); mainVideo.play().catch(() => {}); }
+  }
+
   function setActive(idx) {
-    current = (idx + srcs.length) % srcs.length;
-    mainImg.src = srcs[current];
+    current = (idx + thumbs.length) % thumbs.length;
     thumbs.forEach((t, i) => t.classList.toggle('active', i === current));
+    const thumb = thumbs[current];
+    const videoUrl = thumb.dataset.video;
+    if (videoUrl) {
+      showVideo(videoUrl);
+    } else {
+      const img = thumb.querySelector('img');
+      if (img) showImage(img.src);
+    }
   }
 
   thumbs.forEach((thumb, i) => thumb.addEventListener('click', () => setActive(i)));
