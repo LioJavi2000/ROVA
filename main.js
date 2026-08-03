@@ -320,12 +320,13 @@ function setActiveNav() {
 
 /* --- PDP Gallery ------------------------------- */
 function initGallery() {
-  const mainImg   = document.getElementById('gallery-main-img');
-  const mainVideo = document.getElementById('gallery-main-video');
-  const videoSrc  = document.getElementById('gallery-video-src');
-  const thumbs    = document.querySelectorAll('.pdp-thumb');
-  const prevBtn   = document.querySelector('.gallery-arrow.prev');
-  const nextBtn   = document.querySelector('.gallery-arrow.next');
+  const mainImg     = document.getElementById('gallery-main-img');
+  const mainVideo   = document.getElementById('gallery-main-video');
+  const videoSrc    = document.getElementById('gallery-video-src');
+  const galleryMain = document.querySelector('.pdp-gallery-main');
+  const thumbs      = document.querySelectorAll('.pdp-thumb');
+  const prevBtn     = document.querySelector('.gallery-arrow.prev');
+  const nextBtn     = document.querySelector('.gallery-arrow.next');
 
   if (!mainImg || !thumbs.length) return;
 
@@ -333,12 +334,14 @@ function initGallery() {
 
   function showImage(src) {
     if (mainVideo) { mainVideo.pause(); mainVideo.classList.remove('active'); }
+    if (galleryMain) galleryMain.classList.remove('video-active');
     mainImg.src = src;
     mainImg.style.display = '';
   }
 
   function showVideo(src) {
     mainImg.style.display = 'none';
+    if (galleryMain) galleryMain.classList.add('video-active');
     if (videoSrc) videoSrc.src = src;
     if (mainVideo) { mainVideo.load(); mainVideo.classList.add('active'); mainVideo.play().catch(() => {}); }
   }
