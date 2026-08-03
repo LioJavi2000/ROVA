@@ -643,7 +643,7 @@ footer {
 .pdp-thumb.active:hover { border-color: var(--rust); }
 
 .pdp-thumb-video {
-  background: #1a1410;
+  background: #000;
   display: flex;
   flex-direction: column;
   align-items: center;
