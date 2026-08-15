@@ -134,6 +134,8 @@ function initReviewLikes() {
         countEl.textContent = base;
       } else {
         liked[id] = true;
+        btn.classList.remove('liked');
+        void btn.querySelector('.review-heart').offsetWidth; // reflow to retrigger animation
         btn.classList.add('liked');
         countEl.textContent = base + 1;
       }
