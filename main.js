@@ -113,7 +113,34 @@ document.addEventListener('DOMContentLoaded', () => {
   initGallery();
   initCart();
   initPrivacyModal();
+  initReviewLikes();
 });
+
+/* ── Review Likes ──────────────────────────────── */
+function initReviewLikes() {
+  const btns = document.querySelectorAll('.review-like-btn');
+  if (!btns.length) return;
+  const liked = JSON.parse(localStorage.getItem('rova_review_likes') || '{}');
+  btns.forEach(btn => {
+    const id = btn.dataset.reviewId;
+    const base = parseInt(btn.dataset.baseLikes || '0', 10);
+    const countEl = btn.querySelector('.review-like-count');
+    if (liked[id]) btn.classList.add('liked');
+    countEl.textContent = base + (liked[id] ? 1 : 0);
+    btn.addEventListener('click', () => {
+      if (liked[id]) {
+        delete liked[id];
+        btn.classList.remove('liked');
+        countEl.textContent = base;
+      } else {
+        liked[id] = true;
+        btn.classList.add('liked');
+        countEl.textContent = base + 1;
+      }
+      localStorage.setItem('rova_review_likes', JSON.stringify(liked));
+    });
+  });
+}
 
 /* ── Privacy & Terms Modal ─────────────────────── */
 function initPrivacyModal() {
