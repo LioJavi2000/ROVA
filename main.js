@@ -103,20 +103,11 @@ const CATALOG = [
 let qaState = { idx: -1, colorIdx: 0, sizeKey: null };
 
 document.addEventListener('DOMContentLoaded', () => {
-  initMobileNav();
-  initAccordion();
-  initColorSelector();
-  initSizeSelector();
-  initQuantitySelector();
-  setActiveNav();
-  initScrollFades();
-  initGallery();
-  initCart();
-  initPrivacyModal();
-  initReviewLikes();
-  initReviewReadMore();
-  initWriteReview();
-  updateReviewCount();
+  [initMobileNav, initAccordion, initColorSelector, initSizeSelector,
+   initQuantitySelector, setActiveNav, initScrollFades, initGallery,
+   initCart, initPrivacyModal, initReviewLikes, initReviewReadMore,
+   initWriteReview, updateReviewCount]
+  .forEach(fn => { try { fn(); } catch(e) { console.error(fn.name + ':', e); } });
 });
 
 /* ── Review Likes ──────────────────────────────── */
@@ -160,21 +151,22 @@ function initReviewLikes() {
     const countEl = btn.querySelector('.review-like-count');
     const heartEl = btn.querySelector('.review-heart');
     if (liked[id]) { btn.classList.add('liked'); if (heartEl) heartEl.textContent = '♥'; }
-    countEl.textContent = base + (liked[id] ? 1 : 0);
+    if (countEl) countEl.textContent = base + (liked[id] ? 1 : 0);
     btn.addEventListener('click', () => {
       const h = btn.querySelector('.review-heart');
+      const c = btn.querySelector('.review-like-count');
       if (liked[id]) {
         delete liked[id];
         btn.classList.remove('liked');
         if (h) h.textContent = '♡';
-        countEl.textContent = base;
+        if (c) c.textContent = base;
       } else {
         liked[id] = true;
         btn.classList.remove('liked');
         if (h) void h.offsetWidth;
         btn.classList.add('liked');
         if (h) h.textContent = '♥';
-        countEl.textContent = base + 1;
+        if (c) c.textContent = base + 1;
       }
       localStorage.setItem('rova_review_likes', JSON.stringify(liked));
     });
