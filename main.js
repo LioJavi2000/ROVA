@@ -270,20 +270,27 @@ function initWriteReview() {
 
   function buildReviewCard(r) {
     const filled = '★'.repeat(r.rating);
-    const empty  = r.rating < 5 ? '<span style="color:#ddd">' + '★'.repeat(5 - r.rating) + '</span>' : '';
+    const empty  = r.rating < 5 ? '<span style=”color:#ddd”>' + '★'.repeat(5 - r.rating) + '</span>' : '';
     const div = document.createElement('div');
     div.className = 'review-card';
     div.style.marginTop = '20px';
     div.innerHTML =
-      '<div class="review-card-top">' +
-        '<span class="review-card-stars">' + filled + empty + '</span>' +
-        '<span class="review-card-date">' + r.date + '</span>' +
+      '<div class=”review-card-top”>' +
+        '<span class=”review-card-stars”>' + filled + empty + '</span>' +
+        '<span class=”review-card-date”>' + r.date + '</span>' +
+        '<button class=”review-delete-btn” title=”Delete review”>&times;</button>' +
       '</div>' +
-      '<p class="review-card-name">' + escHtml(r.name) + '</p>' +
-      '<p class="review-card-body">“' + escHtml(r.body) + '”</p>' +
-      '<div class="review-footer">' +
-        '<span class="review-verified">&#10004; Verified Purchase</span>' +
+      '<p class=”review-card-name”>' + escHtml(r.name) + '</p>' +
+      '<p class=”review-card-body”>”' + escHtml(r.body) + '”</p>' +
+      '<div class=”review-footer”>' +
+        '<span class=”review-verified”>&#10004; Verified Purchase</span>' +
       '</div>';
+    div.querySelector('.review-delete-btn').addEventListener('click', () => {
+      const all = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(all.filter(x => x.id !== r.id)));
+      div.remove();
+      updateReviewCount();
+    });
     return div;
   }
 

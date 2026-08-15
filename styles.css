@@ -1269,6 +1269,18 @@ footer {
 .write-review-stars span.active,
 .write-review-stars span.selected { color: #F5C518; }
 .write-review-stars.write-review-error { outline: 2px solid #e53e3e; border-radius: 4px; padding: 2px; }
+.review-delete-btn {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: #bbb;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 0 0 8px;
+  transition: color 0.15s;
+}
+.review-delete-btn:hover { color: #e53e3e; }
 
 .write-review-name,
 .write-review-textarea {
