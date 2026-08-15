@@ -718,6 +718,21 @@ footer {
   letter-spacing: 2px;
   line-height: 1;
 }
+.star-partial {
+  position: relative;
+  display: inline-block;
+  color: #ccc;
+}
+.star-partial::before {
+  content: '★';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #F5C518;
+  width: 67%;
+  overflow: hidden;
+  display: block;
+}
 .star-score {
   font-size: 15px;
   font-weight: 700;
