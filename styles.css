@@ -714,7 +714,7 @@ footer {
 }
 .star-icons {
   color: #F5C518;
-  font-size: 20px;
+  font-size: 26px;
   letter-spacing: 2px;
   line-height: 1;
 }
@@ -734,12 +734,12 @@ footer {
   display: block;
 }
 .star-score {
-  font-size: 15px;
+  font-size: 20px;
   font-weight: 700;
   color: #111;
 }
 .star-count {
-  font-size: 13px;
+  font-size: 14px;
   color: #555;
 }
 
@@ -758,7 +758,7 @@ footer {
   margin-bottom: 0;
 }
 .pdp-price-old {
-  font-size: 18px;
+  font-size: 22px;
   color: #888;
   text-decoration: line-through;
   font-weight: 400;
@@ -766,12 +766,18 @@ footer {
 .pdp-price-badge {
   background: #e53e3e;
   color: #fff;
-  font-size: 11px;
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: 800;
   letter-spacing: 0.08em;
-  padding: 4px 9px;
-  border-radius: 4px;
+  padding: 6px 12px;
+  border-radius: 5px;
   text-transform: uppercase;
+  animation: badge-glow 1.8s ease-in-out infinite;
+}
+@keyframes badge-glow {
+  0%   { box-shadow: 0 0 6px 1px rgba(229,62,62,0.5); }
+  50%  { box-shadow: 0 0 18px 5px rgba(229,62,62,0.85); }
+  100% { box-shadow: 0 0 6px 1px rgba(229,62,62,0.5); }
 }
 
 /* FREE SHIPPING banner */
