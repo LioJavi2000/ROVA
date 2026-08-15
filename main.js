@@ -188,12 +188,21 @@ function initWriteReview() {
   const form = document.getElementById('writeReviewForm');
   if (!btn || !form) return;
 
+  // Attach toggle first — nothing can break this
+  btn.addEventListener('click', () => {
+    const open = form.style.display === 'block';
+    form.style.display = open ? 'none' : 'block';
+    btn.textContent = open ? 'Write a Review' : 'Cancel';
+  });
+
   const starsEl    = document.getElementById('writeReviewStars');
   const nameInput  = document.getElementById('writeReviewName');
   const sizeInput  = document.getElementById('writeReviewSize');
   const bodyInput  = document.getElementById('writeReviewBody');
   const submitBtn  = document.getElementById('writeReviewSubmit');
   const container  = document.getElementById('userReviews');
+
+  if (!starsEl || !nameInput || !bodyInput || !submitBtn || !container) return;
 
   const page = location.pathname.split('/').pop().replace('.html','') || 'index';
   const STORAGE_KEY = 'rova_user_reviews_' + page;
@@ -220,13 +229,6 @@ function initWriteReview() {
   });
   starsEl.addEventListener('mouseleave', () => {
     starSpans.forEach(s => s.classList.toggle('active', +s.dataset.val <= selectedRating));
-  });
-
-  // Toggle form open/close
-  btn.addEventListener('click', () => {
-    const open = form.style.display === 'block';
-    form.style.display = open ? 'none' : 'block';
-    btn.textContent = open ? 'Write a Review' : 'Cancel';
   });
 
   // Submit
