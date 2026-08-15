@@ -116,6 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initReviewLikes();
   initReviewReadMore();
   initWriteReview();
+  updateReviewCount();
 });
 
 /* ── Review Likes ──────────────────────────────── */
@@ -174,6 +175,14 @@ function initReviewLikes() {
       localStorage.setItem('rova_review_likes', JSON.stringify(liked));
     });
   });
+}
+
+/* ── Review Count ──────────────────────────────── */
+function updateReviewCount() {
+  const countEl = document.querySelector('.star-count');
+  if (!countEl) return;
+  const total = document.querySelectorAll('.review-card').length;
+  countEl.textContent = '(' + total + ' reviews)';
 }
 
 /* ── Write a Review ────────────────────────────── */
@@ -248,6 +257,7 @@ function initWriteReview() {
 
     container.insertBefore(buildReviewCard(review), container.firstChild);
     initReviewReadMore();
+    updateReviewCount();
 
     // Reset
     nameInput.value = '';
