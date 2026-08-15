@@ -1086,6 +1086,70 @@ footer {
 
 .size-table tr:last-child td { border-bottom: none; }
 
+/* === 18b. CUSTOMER REVIEWS ==================== */
+.pdp-reviews {
+  padding: 64px 0;
+  border-top: 1px solid var(--stone);
+  background: var(--sand);
+}
+.pdp-reviews-title {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--bark);
+  margin-bottom: 28px;
+}
+.review-card {
+  background: #fff;
+  border: 1px solid var(--stone);
+  border-radius: 10px;
+  padding: 24px 28px;
+  max-width: 600px;
+}
+.review-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.review-card-stars {
+  color: #F5C518;
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+.review-card-date {
+  font-size: 12px;
+  color: #888;
+}
+.review-card-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 4px;
+}
+.review-card-variant {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 14px;
+}
+.review-card-body {
+  font-size: 15px;
+  color: #111;
+  line-height: 1.65;
+}
+.review-verified {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #1a8c3e;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 16px;
+}
+
 /* === 19. YMAL SECTION ========================= */
 .ymal-section {
   background: var(--sand-dark);
