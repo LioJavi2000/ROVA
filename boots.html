@@ -282,6 +282,22 @@
       <div class="container">
         <p class="pdp-reviews-title">Customer Reviews</p>
 
+        <button class="write-review-btn" id="writeReviewBtn">&#9998; Write a Review</button>
+        <div class="write-review-form" id="writeReviewForm">
+          <p class="write-review-label">Your Rating</p>
+          <div class="write-review-stars" id="writeReviewStars">
+            <span data-val="1">&#9733;</span>
+            <span data-val="2">&#9733;</span>
+            <span data-val="3">&#9733;</span>
+            <span data-val="4">&#9733;</span>
+            <span data-val="5">&#9733;</span>
+          </div>
+          <input type="text" class="write-review-name" id="writeReviewName" placeholder="Your name" maxlength="40" autocomplete="off">
+          <textarea class="write-review-textarea" id="writeReviewBody" placeholder="Share your experience with this product..." maxlength="600"></textarea>
+          <button class="write-review-submit" id="writeReviewSubmit">Post Review</button>
+        </div>
+        <div id="userReviews"></div>
+
         <!-- Evelyn K. — most recent -->
         <div class="review-card">
           <div class="review-card-top">
@@ -403,6 +419,7 @@
           <p class="review-card-name">Anthony G.</p>
           <p class="review-card-variant">Color: Black &nbsp;·&nbsp; Size: Size 7</p>
           <p class="review-card-body">"Bought these for my Labrador who struggles with his back legs — his feet were sliding everywhere and he kept falling over. What a difference these have made! He was totally happy to have them put on and walks so much better now. His back legs aren't dragging nearly as much and he actually ran for the first time in months. We keep them on all day and just take them off at bedtime. These boots have genuinely changed his life."</p>
+          <img src="images/boots/boots-review-anthony.jpg" alt="Anthony's Labrador wearing Rova boots" style="width:100%;border-radius:8px;margin-top:16px;object-fit:cover;max-height:280px;">
           <div class="review-footer">
             <span class="review-verified">✔ Verified Purchase</span>
             <button class="review-like-btn" data-review-id="anthony" data-base-likes="4" aria-label="Like this review">

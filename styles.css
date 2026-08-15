@@ -1218,6 +1218,93 @@ footer {
   100% { transform: scale(1); }
 }
 
+/* === 18c. WRITE A REVIEW FORM ================= */
+.write-review-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 11px 24px;
+  background: var(--rust);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  margin-bottom: 24px;
+}
+.write-review-btn:hover { background: #a84f3a; transform: translateY(-1px); }
+
+.write-review-form {
+  display: none;
+  background: #faf8f5;
+  border: 1px solid #e5ddd4;
+  border-radius: 10px;
+  padding: 24px 24px 20px;
+  margin-bottom: 28px;
+}
+
+.write-review-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #555;
+  margin: 0 0 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.write-review-stars {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 18px;
+  font-size: 36px;
+  color: #ddd;
+  cursor: pointer;
+  user-select: none;
+  line-height: 1;
+}
+.write-review-stars span { transition: color 0.1s; }
+.write-review-stars span.active,
+.write-review-stars span.selected { color: #F5C518; }
+.write-review-stars.write-review-error { outline: 2px solid #e53e3e; border-radius: 4px; padding: 2px; }
+
+.write-review-name,
+.write-review-textarea {
+  display: block;
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid #d4ccc4;
+  border-radius: 6px;
+  font-size: 15px;
+  color: #111;
+  background: #fff;
+  font-family: inherit;
+  box-sizing: border-box;
+  transition: border-color 0.15s, outline 0.15s;
+}
+.write-review-name { margin-bottom: 12px; }
+.write-review-textarea { resize: vertical; min-height: 100px; margin-bottom: 16px; }
+.write-review-name:focus,
+.write-review-textarea:focus { outline: 2px solid var(--rust); border-color: transparent; }
+.write-review-name.write-review-error,
+.write-review-textarea.write-review-error { border-color: #e53e3e; }
+
+.write-review-submit {
+  padding: 11px 28px;
+  background: var(--bark);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.write-review-submit:hover { background: var(--rust); }
+
 /* === 19. YMAL SECTION ========================= */
 .ymal-section {
   background: var(--sand-dark);

@@ -115,13 +115,15 @@ document.addEventListener('DOMContentLoaded', () => {
   initPrivacyModal();
   initReviewLikes();
   initReviewReadMore();
+  initWriteReview();
 });
 
 /* ── Review Likes ──────────────────────────────── */
 /* ── Review Read More ──────────────────────────── */
 function initReviewReadMore() {
   const LIMIT = 90; // ~3 lines of text
-  document.querySelectorAll('.review-card-body').forEach(body => {
+  document.querySelectorAll('.review-card-body:not([data-rm-init])').forEach(body => {
+    body.dataset.rmInit = '1';
     const full = body.scrollHeight;
     if (full <= LIMIT + 20) return;
 
@@ -172,6 +174,112 @@ function initReviewLikes() {
       localStorage.setItem('rova_review_likes', JSON.stringify(liked));
     });
   });
+}
+
+/* ── Write a Review ────────────────────────────── */
+function initWriteReview() {
+  const btn = document.getElementById('writeReviewBtn');
+  const form = document.getElementById('writeReviewForm');
+  if (!btn || !form) return;
+
+  const starsEl    = document.getElementById('writeReviewStars');
+  const nameInput  = document.getElementById('writeReviewName');
+  const bodyInput  = document.getElementById('writeReviewBody');
+  const submitBtn  = document.getElementById('writeReviewSubmit');
+  const container  = document.getElementById('userReviews');
+
+  const page = location.pathname.split('/').pop().replace('.html','') || 'index';
+  const STORAGE_KEY = 'rova_user_reviews_' + page;
+
+  let selectedRating = 0;
+
+  // Render previously saved reviews
+  const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  saved.forEach(r => container.appendChild(buildReviewCard(r)));
+  if (saved.length) initReviewReadMore();
+
+  // Star hover + selection
+  const starSpans = starsEl.querySelectorAll('span');
+  starSpans.forEach(star => {
+    star.addEventListener('mouseenter', () => {
+      const v = +star.dataset.val;
+      starSpans.forEach(s => s.classList.toggle('active', +s.dataset.val <= v));
+    });
+    star.addEventListener('click', () => {
+      selectedRating = +star.dataset.val;
+      starSpans.forEach(s => s.classList.toggle('selected', +s.dataset.val <= selectedRating));
+      starsEl.classList.remove('write-review-error');
+    });
+  });
+  starsEl.addEventListener('mouseleave', () => {
+    starSpans.forEach(s => s.classList.toggle('active', +s.dataset.val <= selectedRating));
+  });
+
+  // Toggle form open/close
+  btn.addEventListener('click', () => {
+    const open = form.style.display === 'block';
+    form.style.display = open ? 'none' : 'block';
+    btn.textContent = open ? '✎ Write a Review' : '✕ Cancel';
+  });
+
+  // Submit
+  submitBtn.addEventListener('click', () => {
+    const name = nameInput.value.trim();
+    const body = bodyInput.value.trim();
+    let valid = true;
+    if (!selectedRating) { starsEl.classList.add('write-review-error'); valid = false; }
+    if (!name)  { nameInput.classList.add('write-review-error');  valid = false; }
+    else          nameInput.classList.remove('write-review-error');
+    if (!body)  { bodyInput.classList.add('write-review-error');  valid = false; }
+    else          bodyInput.classList.remove('write-review-error');
+    if (!valid) return;
+
+    const review = {
+      id: 'user_' + Date.now(),
+      name,
+      body,
+      rating: selectedRating,
+      date: new Date().toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' })
+    };
+
+    const all = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    all.unshift(review);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
+
+    container.insertBefore(buildReviewCard(review), container.firstChild);
+    initReviewReadMore();
+
+    // Reset
+    nameInput.value = '';
+    bodyInput.value = '';
+    selectedRating = 0;
+    starSpans.forEach(s => s.classList.remove('selected', 'active'));
+    form.style.display = 'none';
+    btn.textContent = '✎ Write a Review';
+  });
+
+  function buildReviewCard(r) {
+    const filled = '★'.repeat(r.rating);
+    const empty  = r.rating < 5 ? '<span style="color:#ddd">' + '★'.repeat(5 - r.rating) + '</span>' : '';
+    const div = document.createElement('div');
+    div.className = 'review-card';
+    div.style.marginTop = '20px';
+    div.innerHTML =
+      '<div class="review-card-top">' +
+        '<span class="review-card-stars">' + filled + empty + '</span>' +
+        '<span class="review-card-date">' + r.date + '</span>' +
+      '</div>' +
+      '<p class="review-card-name">' + escHtml(r.name) + '</p>' +
+      '<p class="review-card-body">“' + escHtml(r.body) + '”</p>' +
+      '<div class="review-footer">' +
+        '<span class="review-verified">&#10004; Verified Purchase</span>' +
+      '</div>';
+    return div;
+  }
+
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
 }
 
 /* ── Privacy & Terms Modal ─────────────────────── */
