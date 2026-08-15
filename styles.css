@@ -15,7 +15,7 @@
   --container-max: 1320px;
   --container-pad: 40px;
   --header-height: 68px;
-  --announce-height: 36px;
+  --announce-height: 52px;
 }
 
 /* === 2. RESET ================================== */
@@ -60,7 +60,7 @@ p { color: var(--bark); }
 .announcement-bar {
   background: var(--bark);
   color: var(--sand);
-  font-size: 13px;
+  font-size: 15px;
   letter-spacing: 0.08em;
   font-weight: 600;
   height: var(--announce-height);
@@ -324,7 +324,7 @@ p { color: var(--bark); }
 
 .hero-sub {
   font-size: 20px;
-  color: var(--sage);
+  color: var(--bark);
   margin-bottom: 40px;
   line-height: 1.5;
   max-width: 300px;
@@ -359,7 +359,7 @@ p { color: var(--bark); }
 
 .trust-desc {
   font-size: 14px;
-  color: var(--sage);
+  color: var(--bark);
   line-height: 1.5;
 }
 
@@ -393,7 +393,7 @@ p { color: var(--bark); }
 
 .product-card-desc {
   font-size: 14px;
-  color: var(--sage);
+  color: var(--bark);
   margin-bottom: 16px;
   line-height: 1.5;
   flex: 1;
@@ -422,7 +422,7 @@ p { color: var(--bark); }
 
 .brand-statement .bs-body {
   font-size: 20px;
-  color: var(--sage);
+  color: var(--bark);
   max-width: 600px;
   margin: 0 auto 40px;
   line-height: 1.7;
@@ -461,7 +461,7 @@ p { color: var(--bark); }
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--sage);
+  color: var(--bark);
 }
 
 /* === 15. FOOTER =============================== */
@@ -714,7 +714,7 @@ footer {
 
 .pdp-desc {
   font-size: 16px;
-  color: var(--sage);
+  color: var(--bark);
   line-height: 1.65;
   margin-bottom: 32px;
   padding-bottom: 32px;
@@ -881,7 +881,7 @@ footer {
 
 .pdp-trust-item {
   font-size: 14px;
-  color: var(--sage);
+  color: var(--bark);
 }
 
 /* === 18. ACCORDION ============================ */
@@ -934,7 +934,7 @@ footer {
 .accordion-inner {
   padding: 4px 0 28px;
   font-size: 15px;
-  color: var(--sage);
+  color: var(--bark);
   line-height: 1.7;
 }
 
@@ -970,7 +970,7 @@ footer {
 .size-table td {
   padding: 10px 14px;
   border-bottom: 1px solid var(--sand-dark);
-  color: var(--sage);
+  color: var(--bark);
 }
 
 .size-table tr:last-child td { border-bottom: none; }
@@ -1014,7 +1014,7 @@ footer {
 
 .story-intro .lead {
   font-size: 24px;
-  color: var(--sage);
+  color: var(--bark);
   max-width: 480px;
   margin: 0 auto;
   line-height: 1.5;
@@ -1037,7 +1037,7 @@ footer {
 
 .story-split-text p {
   font-size: 18px;
-  color: var(--sage);
+  color: var(--bark);
   line-height: 1.75;
   margin-bottom: 20px;
 }
@@ -1575,7 +1575,7 @@ footer {
 
 .qa-desc {
   font-size: 12px;
-  color: var(--sage);
+  color: var(--bark);
   line-height: 1.5;
 }
 
