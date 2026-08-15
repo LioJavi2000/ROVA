@@ -1138,6 +1138,26 @@ footer {
   color: #111;
   line-height: 1.65;
 }
+.review-body-gradient {
+  height: 44px;
+  margin-top: -44px;
+  background: linear-gradient(to bottom, transparent, #fff);
+  position: relative;
+  pointer-events: none;
+}
+.review-read-more {
+  background: none;
+  border: none;
+  color: var(--rust);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 6px 0 2px;
+  letter-spacing: 0.02em;
+  transition: color 0.15s;
+  display: block;
+}
+.review-read-more:hover { color: var(--bark); }
 .review-footer {
   display: flex;
   align-items: center;

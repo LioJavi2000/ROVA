@@ -114,9 +114,39 @@ document.addEventListener('DOMContentLoaded', () => {
   initCart();
   initPrivacyModal();
   initReviewLikes();
+  initReviewReadMore();
 });
 
 /* ── Review Likes ──────────────────────────────── */
+/* ── Review Read More ──────────────────────────── */
+function initReviewReadMore() {
+  const LIMIT = 90; // ~3 lines of text
+  document.querySelectorAll('.review-card-body').forEach(body => {
+    const full = body.scrollHeight;
+    if (full <= LIMIT + 20) return;
+
+    body.style.maxHeight = LIMIT + 'px';
+    body.style.overflow = 'hidden';
+    body.style.transition = 'max-height 0.4s ease';
+
+    const grad = document.createElement('div');
+    grad.className = 'review-body-gradient';
+    body.parentNode.insertBefore(grad, body.nextSibling);
+
+    const btn = document.createElement('button');
+    btn.className = 'review-read-more';
+    btn.textContent = 'Read more';
+    grad.after(btn);
+
+    btn.addEventListener('click', () => {
+      const expanded = body.classList.toggle('expanded');
+      body.style.maxHeight = expanded ? full + 'px' : LIMIT + 'px';
+      grad.style.display = expanded ? 'none' : '';
+      btn.textContent = expanded ? 'Read less' : 'Read more';
+    });
+  });
+}
+
 function initReviewLikes() {
   const btns = document.querySelectorAll('.review-like-btn');
   if (!btns.length) return;
