@@ -158,22 +158,22 @@ function initReviewLikes() {
     const id = btn.dataset.reviewId;
     const base = parseInt(btn.dataset.baseLikes || '0', 10);
     const countEl = btn.querySelector('.review-like-count');
-    const heart = btn.querySelector('.review-heart');
-    if (liked[id]) { btn.classList.add('liked'); heart.textContent = '♥'; }
+    const heartEl = btn.querySelector('.review-heart');
+    if (liked[id]) { btn.classList.add('liked'); if (heartEl) heartEl.textContent = '♥'; }
     countEl.textContent = base + (liked[id] ? 1 : 0);
     btn.addEventListener('click', () => {
-      const heart = btn.querySelector('.review-heart');
+      const h = btn.querySelector('.review-heart');
       if (liked[id]) {
         delete liked[id];
         btn.classList.remove('liked');
-        heart.textContent = '♡';
+        if (h) h.textContent = '♡';
         countEl.textContent = base;
       } else {
         liked[id] = true;
         btn.classList.remove('liked');
-        void heart.offsetWidth;
+        if (h) void h.offsetWidth;
         btn.classList.add('liked');
-        heart.textContent = '♥';
+        if (h) h.textContent = '♥';
         countEl.textContent = base + 1;
       }
       localStorage.setItem('rova_review_likes', JSON.stringify(liked));
@@ -234,7 +234,7 @@ function initWriteReview() {
   btn.addEventListener('click', () => {
     const open = form.style.display === 'block';
     form.style.display = open ? 'none' : 'block';
-    btn.textContent = open ? '✎ Write a Review' : '✕ Cancel';
+    btn.textContent = open ? 'Write a Review' : 'Cancel';
   });
 
   // Submit
@@ -274,7 +274,7 @@ function initWriteReview() {
     selectedRating = 0;
     starSpans.forEach(s => s.classList.remove('selected', 'active'));
     form.style.display = 'none';
-    btn.textContent = '✎ Write a Review';
+    btn.textContent = 'Write a Review';
   });
 
   function buildReviewCard(r) {
