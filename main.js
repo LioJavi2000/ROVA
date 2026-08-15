@@ -158,18 +158,22 @@ function initReviewLikes() {
     const id = btn.dataset.reviewId;
     const base = parseInt(btn.dataset.baseLikes || '0', 10);
     const countEl = btn.querySelector('.review-like-count');
-    if (liked[id]) btn.classList.add('liked');
+    const heart = btn.querySelector('.review-heart');
+    if (liked[id]) { btn.classList.add('liked'); heart.textContent = '♥'; }
     countEl.textContent = base + (liked[id] ? 1 : 0);
     btn.addEventListener('click', () => {
+      const heart = btn.querySelector('.review-heart');
       if (liked[id]) {
         delete liked[id];
         btn.classList.remove('liked');
+        heart.textContent = '♡';
         countEl.textContent = base;
       } else {
         liked[id] = true;
         btn.classList.remove('liked');
-        void btn.querySelector('.review-heart').offsetWidth; // reflow to retrigger animation
+        void heart.offsetWidth;
         btn.classList.add('liked');
+        heart.textContent = '♥';
         countEl.textContent = base + 1;
       }
       localStorage.setItem('rova_review_likes', JSON.stringify(liked));
@@ -181,7 +185,8 @@ function initReviewLikes() {
 function updateReviewCount() {
   const countEl = document.querySelector('.star-count');
   if (!countEl) return;
-  const total = document.querySelectorAll('.review-card').length;
+  const base = parseInt(countEl.dataset.base || '0', 10);
+  const total = base + document.querySelectorAll('.review-card').length;
   countEl.textContent = '(' + total + ' reviews)';
 }
 
@@ -193,6 +198,7 @@ function initWriteReview() {
 
   const starsEl    = document.getElementById('writeReviewStars');
   const nameInput  = document.getElementById('writeReviewName');
+  const sizeInput  = document.getElementById('writeReviewSize');
   const bodyInput  = document.getElementById('writeReviewBody');
   const submitBtn  = document.getElementById('writeReviewSubmit');
   const container  = document.getElementById('userReviews');
@@ -234,6 +240,7 @@ function initWriteReview() {
   // Submit
   submitBtn.addEventListener('click', () => {
     const name = nameInput.value.trim();
+    const size = sizeInput ? sizeInput.value : '';
     const body = bodyInput.value.trim();
     let valid = true;
     if (!selectedRating) { starsEl.classList.add('write-review-error'); valid = false; }
@@ -246,6 +253,7 @@ function initWriteReview() {
     const review = {
       id: 'user_' + Date.now(),
       name,
+      size,
       body,
       rating: selectedRating,
       date: new Date().toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' })
@@ -261,6 +269,7 @@ function initWriteReview() {
 
     // Reset
     nameInput.value = '';
+    if (sizeInput) sizeInput.value = '';
     bodyInput.value = '';
     selectedRating = 0;
     starSpans.forEach(s => s.classList.remove('selected', 'active'));
@@ -281,6 +290,7 @@ function initWriteReview() {
         '<button class=”review-delete-btn” title=”Delete review”>&times;</button>' +
       '</div>' +
       '<p class=”review-card-name”>' + escHtml(r.name) + '</p>' +
+      '<p class=”review-card-variant”>Color: Black (4pcs)' + (r.size ? ' &nbsp;&middot;&nbsp; Size: ' + escHtml(r.size) : '') + '</p>' +
       '<p class=”review-card-body”>”' + escHtml(r.body) + '”</p>' +
       '<div class=”review-footer”>' +
         '<span class=”review-verified”>&#10004; Verified Purchase</span>' +
