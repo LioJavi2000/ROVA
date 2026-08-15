@@ -705,11 +705,75 @@ footer {
   margin-bottom: 12px;
 }
 
-.pdp-price {
-  font-size: 26px;
-  font-weight: 600;
-  color: var(--bark);
+/* Star rating */
+.pdp-stars {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.star-icons {
+  color: #F5C518;
+  font-size: 20px;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+.star-score {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111;
+}
+.star-count {
+  font-size: 13px;
+  color: #555;
+}
+
+/* Price row with sale */
+.pdp-price-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
   margin-bottom: 24px;
+}
+.pdp-price {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a8c3e;
+  margin-bottom: 0;
+}
+.pdp-price-old {
+  font-size: 18px;
+  color: #888;
+  text-decoration: line-through;
+  font-weight: 400;
+}
+.pdp-price-badge {
+  background: #e53e3e;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 4px 9px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+/* FREE SHIPPING banner */
+.pdp-free-shipping {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f0faf4;
+  border: 1.5px solid #2d9b58;
+  border-radius: 6px;
+  padding: 11px 15px;
+  margin-bottom: 24px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a8c3e;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .pdp-desc {
@@ -738,27 +802,53 @@ footer {
 }
 
 .size-pill {
-  padding: 8px 18px;
+  padding: 10px 22px;
   border: 1.5px solid var(--stone);
-  border-radius: 4px;
-  font-size: 14px;
+  border-radius: 6px;
+  font-size: 16px;
   font-weight: 600;
   color: var(--bark);
   cursor: pointer;
-  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
   background: transparent;
+  animation: pill-bounce-in 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
-.size-pill:hover { border-color: var(--bark); }
+.size-pill:hover {
+  border-color: var(--bark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
 
 .size-pill.selected {
   border-color: var(--rust);
   color: var(--rust);
+  background: rgba(196,97,74,0.06);
+  animation: pill-pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .size-pill:disabled {
   opacity: 0.35;
   cursor: not-allowed;
+}
+
+.size-pills .size-pill:nth-child(1) { animation-delay: 0.04s; }
+.size-pills .size-pill:nth-child(2) { animation-delay: 0.08s; }
+.size-pills .size-pill:nth-child(3) { animation-delay: 0.12s; }
+.size-pills .size-pill:nth-child(4) { animation-delay: 0.16s; }
+.size-pills .size-pill:nth-child(5) { animation-delay: 0.20s; }
+.size-pills .size-pill:nth-child(6) { animation-delay: 0.24s; }
+.size-pills .size-pill:nth-child(7) { animation-delay: 0.28s; }
+
+@keyframes pill-bounce-in {
+  0%   { opacity: 0; transform: scale(0.5) translateY(14px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes pill-pop {
+  0%   { transform: scale(1); }
+  45%  { transform: scale(1.18); }
+  100% { transform: scale(1); }
 }
 
 /* Color Swatches */
