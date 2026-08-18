@@ -729,9 +729,30 @@ footer {
   left: 0;
   top: 0;
   color: #F5C518;
-  width: 67%;
+  width: var(--star-fill, 67%);
   overflow: hidden;
   display: block;
+}
+.product-card-stars {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 4px 0 6px;
+}
+.product-card-stars .pc-stars {
+  color: #F5C518;
+  font-size: 13px;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+.product-card-stars .pc-score {
+  font-size: 12px;
+  font-weight: 700;
+  color: #111;
+}
+.product-card-stars .pc-count {
+  font-size: 11px;
+  color: #888;
 }
 .star-score {
   font-size: 20px;
