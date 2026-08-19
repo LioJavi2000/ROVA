@@ -754,6 +754,34 @@ footer {
   font-size: 11px;
   color: #888;
 }
+.pc-price-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 4px 0 6px;
+  flex-wrap: wrap;
+}
+.pc-sale-price {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a8c3e;
+}
+.pc-old-price {
+  font-size: 13px;
+  color: #999;
+  text-decoration: line-through;
+}
+.pc-badge {
+  font-size: 10px;
+  font-weight: 700;
+  color: #e53e3e;
+  background: rgba(229,62,62,0.07);
+  border: 1px solid rgba(229,62,62,0.25);
+  border-radius: 4px;
+  padding: 2px 6px;
+  letter-spacing: 0.05em;
+  animation: badge-glow 1.8s ease-in-out infinite;
+}
 .star-score {
   font-size: 20px;
   font-weight: 700;
