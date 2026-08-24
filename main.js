@@ -190,8 +190,8 @@ function initWriteReview() {
 
   // Attach toggle first — nothing can break this
   btn.addEventListener('click', () => {
-    const open = form.style.display === 'block';
-    form.style.display = open ? 'none' : 'block';
+    const open = form.classList.contains('open');
+    form.classList.toggle('open');
     btn.textContent = open ? 'Write a Review' : 'Cancel';
   });
 
@@ -267,7 +267,7 @@ function initWriteReview() {
     bodyInput.value = '';
     selectedRating = 0;
     starSpans.forEach(s => s.classList.remove('selected', 'active'));
-    form.style.display = 'none';
+    form.classList.remove('open');
     btn.textContent = 'Write a Review';
   });
 
@@ -408,15 +408,33 @@ function initColorSelector() {
 
   if (!swatches.length) return;
 
+  let colorFadeTimer = null;
+
   swatches.forEach(swatch => {
     swatch.addEventListener('click', () => {
       swatches.forEach(s => s.classList.remove('selected'));
       swatch.classList.add('selected');
 
-      if (colorLabel) colorLabel.textContent = swatch.dataset.colorName;
+      if (colorLabel) {
+        colorLabel.style.opacity = '0';
+        setTimeout(() => {
+          colorLabel.textContent = swatch.dataset.colorName;
+          colorLabel.style.opacity = '1';
+        }, 110);
+      }
+
       const img = swatch.dataset.img;
-      if (img && mainImg)    mainImg.src    = img;
-      if (img && firstThumb) firstThumb.src = img;
+      if (img && mainImg) {
+        mainImg.style.opacity = '0';
+        clearTimeout(colorFadeTimer);
+        colorFadeTimer = setTimeout(() => {
+          mainImg.src = img;
+          if (firstThumb) firstThumb.src = img;
+          requestAnimationFrame(() => { mainImg.style.opacity = '1'; });
+        }, 160);
+      } else if (img && firstThumb) {
+        firstThumb.src = img;
+      }
 
       refreshCartUrl(cartLink, buyNowLink);
     });
@@ -519,12 +537,18 @@ function initGallery() {
   if (!mainImg || !thumbs.length) return;
 
   let current = 0;
+  let imgFadeTimer = null;
 
   function showImage(src) {
     if (mainVideo) { mainVideo.pause(); mainVideo.classList.remove('active'); }
     if (galleryMain) galleryMain.classList.remove('video-active');
-    mainImg.src = src;
     mainImg.style.display = '';
+    mainImg.style.opacity = '0';
+    clearTimeout(imgFadeTimer);
+    imgFadeTimer = setTimeout(() => {
+      mainImg.src = src;
+      requestAnimationFrame(() => { mainImg.style.opacity = '1'; });
+    }, 160);
   }
 
   function showVideo(src) {
@@ -586,8 +610,14 @@ function saveCart(cart) {
 function updateCartBadge() {
   const total = getCart().reduce((sum, item) => sum + item.qty, 0);
   document.querySelectorAll('.cart-count-badge').forEach(badge => {
+    const prev = badge.textContent;
     badge.textContent = total;
     badge.style.display = total > 0 ? 'flex' : 'none';
+    if (total > 0 && String(total) !== String(prev)) {
+      badge.classList.remove('popping');
+      requestAnimationFrame(() => badge.classList.add('popping'));
+      badge.addEventListener('animationend', () => badge.classList.remove('popping'), { once: true });
+    }
   });
 }
 
