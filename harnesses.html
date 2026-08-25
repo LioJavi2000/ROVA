@@ -9,6 +9,302 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── Bundle Quantity Selector ─────────────────── */
+    .bundle-selector { margin-bottom: 28px; }
+    .bundle-selector > .field-label { margin-bottom: 10px; }
+
+    .bundle-options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .bundle-option {
+      display: block;
+      border: 1.5px solid var(--stone);
+      border-radius: 10px;
+      padding: 15px 18px;
+      cursor: pointer;
+      background: transparent;
+      transition: border-color 0.18s var(--ease-out), background 0.18s var(--ease-out), transform 0.12s var(--ease-out), box-shadow 0.18s var(--ease-out);
+      position: relative;
+    }
+    .bundle-option input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+    .bundle-option:hover { border-color: var(--bark); }
+    .bundle-option.selected {
+      border-color: var(--bark);
+      background: var(--sand-dark);
+      box-shadow: 0 1px 8px rgba(43,31,20,0.07);
+    }
+    .bundle-option:active { transform: scale(0.99); }
+
+    .bundle-option-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .bundle-option-left { flex: 1; min-width: 0; }
+
+    .bundle-option-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--bark);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 3px;
+      flex-wrap: wrap;
+    }
+
+    .bundle-badge {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      border-radius: 20px;
+      background: var(--rust);
+      color: #fff;
+      line-height: 1.5;
+      display: inline-block;
+      vertical-align: middle;
+      animation: bundle-badge-float 2.4s ease-in-out infinite,
+                 bundle-badge-glow  1.9s ease-in-out infinite;
+    }
+    .bundle-badge-value {
+      background: #2a7a3a;
+      position: relative;
+      overflow: hidden;
+      animation: none;
+      box-shadow: 0 0 9px 2px rgba(42,122,58,0.55);
+    }
+    .bundle-badge-value::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -130%;
+      width: 60%;
+      height: 200%;
+      background: linear-gradient(108deg, transparent 20%, rgba(255,255,255,0.5) 50%, transparent 80%);
+      animation: badge-shimmer 3s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes badge-shimmer {
+      0%        { left: -130%; opacity: 0; }
+      18%       { opacity: 1; }
+      55%, 100% { left: 160%; opacity: 0; }
+    }
+
+    @keyframes bundle-badge-float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-3px); }
+    }
+    @keyframes bundle-badge-glow {
+      0%, 100% { box-shadow: 0 0 5px 1px rgba(196,97,74,0.4); }
+      50%       { box-shadow: 0 0 16px 5px rgba(196,97,74,0.8); }
+    }
+
+    .bundle-option-save {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1b6830;
+      display: block;
+      margin-bottom: 3px;
+    }
+    .bundle-option-each {
+      font-size: 13px;
+      color: #5a5a5a;
+      display: block;
+    }
+
+    .bundle-option-prices {
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .bundle-price-sale {
+      display: block;
+      font-size: 22px;
+      font-weight: 700;
+      color: #1a8c3e;
+      line-height: 1.15;
+    }
+    .bundle-price-old {
+      display: block;
+      font-size: 13px;
+      color: #888;
+      text-decoration: line-through;
+    }
+
+    /* Total row */
+    .bundle-total {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 0 0;
+      border-top: 1px solid var(--stone);
+    }
+    .bundle-total-label {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--bark);
+    }
+    .bundle-total-right {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .bundle-total-old {
+      font-size: 14px;
+      color: #aaa;
+      text-decoration: line-through;
+    }
+    .bundle-total-sale {
+      font-size: 28px;
+      font-weight: 700;
+      color: #1a8c3e;
+      line-height: 1;
+    }
+
+    /* Pop animation for total price change */
+    @keyframes bundle-num-pop {
+      0%   { transform: scale(1); }
+      35%  { transform: scale(1.18); }
+      100% { transform: scale(1); }
+    }
+    .bundle-num-popping { animation: bundle-num-pop 0.28s var(--ease-spring); }
+
+    /* Per-tier price personality */
+    .bundle-options .bundle-option:nth-child(1) .bundle-price-sale {
+      font-size: 18px;
+      color: #2d8a4a;
+      opacity: 0.82;
+    }
+    .bundle-options .bundle-option:nth-child(2) .bundle-price-sale {
+      font-size: 28px;
+      color: #16a34a;
+      letter-spacing: -0.03em;
+      text-shadow: 0 0 28px rgba(22,163,74,0.28);
+    }
+    .bundle-options .bundle-option:nth-child(2) .bundle-price-old {
+      font-size: 15px;
+    }
+    .bundle-options .bundle-option:nth-child(3) .bundle-price-sale {
+      font-size: 23px;
+      color: #14532d;
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .bundle-option { transition: none; }
+      .bundle-num-popping { animation: none; }
+      .bundle-badge, .bundle-badge-value { animation: none; }
+    }
+
+    /* ── Multi-Item Configurator ─────────────────── */
+    .multi-config {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(-6px);
+      pointer-events: none;
+      transition: max-height 0.42s var(--ease-out), opacity 0.24s var(--ease-out), transform 0.24s var(--ease-out);
+    }
+    .multi-config.open {
+      max-height: 700px;
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+      margin-bottom: 20px;
+    }
+    .mc-heading {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--bark);
+      opacity: 0.55;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      margin: 20px 0 10px;
+    }
+    .mc-slot {
+      border: 1.5px solid var(--stone);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 8px;
+      background: var(--sand-dark);
+    }
+    .mc-slot:last-child { margin-bottom: 0; }
+    .mc-slot-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .mc-slot-num {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--bark);
+    }
+    .mc-slot-chosen {
+      font-size: 12px;
+      color: #888;
+    }
+    .mc-slot-colors {
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+      margin-bottom: 9px;
+    }
+    .mc-swatch {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      flex-shrink: 0;
+      outline: none;
+      box-shadow: 0 0 0 1.5px rgba(0,0,0,0.10);
+      transition: transform 0.12s var(--ease-spring), border-color 0.12s ease, box-shadow 0.12s ease;
+    }
+    .mc-swatch.active {
+      border-color: var(--bark);
+      box-shadow: 0 0 0 1.5px rgba(0,0,0,0.10), 0 0 0 3.5px rgba(43,31,20,0.20);
+      transform: scale(1.18);
+    }
+    .mc-swatch:hover:not(.active) { transform: scale(1.10); }
+    .mc-slot-sizes {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .mc-size-pill {
+      padding: 3px 12px;
+      border-radius: 20px;
+      border: 1.5px solid var(--stone);
+      background: transparent;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--bark);
+      cursor: pointer;
+      line-height: 1.6;
+      transition: background 0.12s var(--ease-out), border-color 0.12s, color 0.12s, transform 0.10s var(--ease-spring);
+    }
+    .mc-size-pill.active {
+      background: var(--bark);
+      color: #fff;
+      border-color: var(--bark);
+    }
+    .mc-size-pill:hover:not(.active) { border-color: var(--bark); }
+    .mc-size-pill:active { transform: scale(0.92); }
+    @media (prefers-reduced-motion: reduce) {
+      .multi-config { transition: none; }
+      .mc-swatch, .mc-size-pill { transition: none; }
+    }
+  </style>
   <!-- Meta Pixel Code -->
   <script>
   !function(f,b,e,v,n,t,s)
@@ -218,14 +514,68 @@
               <button class="size-pill" data-size="xl">XL</button>
             </div>
 
-            <div class="quantity-row">
-              <p class="field-label" style="margin-bottom: 0;">Quantity</p>
-              <div class="qty-selector">
-                <button class="qty-btn dec" aria-label="Decrease quantity">&#x2212;</button>
-                <span class="qty-display" aria-live="polite">1</span>
-                <button class="qty-btn inc" aria-label="Increase quantity">+</button>
+            <!-- Hidden qty-display keeps refreshCartUrl() working -->
+            <span class="qty-display" style="display:none" aria-live="polite">1</span>
+
+            <div class="bundle-selector">
+              <p class="field-label">How many?</p>
+              <div class="bundle-options">
+
+                <label class="bundle-option" data-qty="1">
+                  <input type="radio" name="bundle-qty" value="1">
+                  <div class="bundle-option-inner">
+                    <div class="bundle-option-left">
+                      <div class="bundle-option-title">One harness</div>
+                    </div>
+                    <div class="bundle-option-prices">
+                      <span class="bundle-price-sale">$30.79</span>
+                      <span class="bundle-price-old">$38.49</span>
+                    </div>
+                  </div>
+                </label>
+
+                <label class="bundle-option selected" data-qty="2">
+                  <input type="radio" name="bundle-qty" value="2" checked>
+                  <div class="bundle-option-inner">
+                    <div class="bundle-option-left">
+                      <div class="bundle-option-title">Two harnesses <span class="bundle-badge">&#9733; Most Popular</span></div>
+                      <span class="bundle-option-save">Save $8.51</span>
+                      <span class="bundle-option-each">$26.50 each</span>
+                    </div>
+                    <div class="bundle-option-prices">
+                      <span class="bundle-price-sale">$52.99</span>
+                      <span class="bundle-price-old">$61.50</span>
+                    </div>
+                  </div>
+                </label>
+
+                <label class="bundle-option" data-qty="3">
+                  <input type="radio" name="bundle-qty" value="3">
+                  <div class="bundle-option-inner">
+                    <div class="bundle-option-left">
+                      <div class="bundle-option-title">Three harnesses <span class="bundle-badge bundle-badge-value">&#10003; Best Value</span></div>
+                      <span class="bundle-option-save">Save $19.31</span>
+                      <span class="bundle-option-each">$24.33 each</span>
+                    </div>
+                    <div class="bundle-option-prices">
+                      <span class="bundle-price-sale">$72.99</span>
+                      <span class="bundle-price-old">$92.30</span>
+                    </div>
+                  </div>
+                </label>
+
+              </div>
+
+              <div class="bundle-total">
+                <span class="bundle-total-label">Total today</span>
+                <div class="bundle-total-right">
+                  <span class="bundle-total-old" id="bundle-total-old">$61.50</span>
+                  <span class="bundle-total-sale" id="bundle-total-sale">$52.99</span>
+                </div>
               </div>
             </div>
+
+            <div id="multi-config" class="multi-config"></div>
 
             <a href="https://rova-9384.myshopify.com/cart/51666422563111:1"
                class="btn btn-primary btn-full pdp-add-btn add-to-cart-link">
@@ -382,6 +732,278 @@
   </footer>
 
   <script src="main.js"></script>
+  <script>
+  (function () {
+    var PRICES = {
+      1: { sale: '30.79', old: '38.49' },
+      2: { sale: '52.99', old: '61.50' },
+      3: { sale: '72.99', old: '92.30' }
+    };
+
+    var options   = document.querySelectorAll('.bundle-option');
+    var totalSale = document.getElementById('bundle-total-sale');
+    var totalOld  = document.getElementById('bundle-total-old');
+    var cartBtn   = document.querySelector('.add-to-cart-link');
+    var buyNow    = document.querySelector('.buy-now-link');
+    var qtyDisp   = document.querySelector('.qty-display');
+
+    if (!options.length) return;
+
+    function pop(el, text) {
+      el.textContent = text;
+      el.classList.remove('bundle-num-popping');
+      void el.offsetWidth;
+      el.classList.add('bundle-num-popping');
+      el.addEventListener('animationend', function () {
+        el.classList.remove('bundle-num-popping');
+      }, { once: true });
+    }
+
+    function select(qty) {
+      options.forEach(function (opt) {
+        var isSelected = parseInt(opt.dataset.qty) === qty;
+        opt.classList.toggle('selected', isSelected);
+        var radio = opt.querySelector('input[type="radio"]');
+        if (radio) radio.checked = isSelected;
+      });
+
+      var sale = PRICES[qty].sale;
+      var old  = PRICES[qty].old;
+
+      if (totalSale) pop(totalSale, '$' + sale);
+      if (totalOld)  totalOld.textContent = '$' + old;
+
+      // Update cart links — replace the qty suffix (:N)
+      [cartBtn, buyNow].forEach(function (link) {
+        if (!link) return;
+        link.href = link.href.replace(/(\/cart\/\d+:)\d+/, '$1' + qty);
+      });
+
+      // Update button label
+      if (cartBtn) cartBtn.textContent = 'Add to Cart — $' + sale;
+
+      // Keep hidden qty-display in sync so refreshCartUrl() uses the right qty
+      if (qtyDisp) qtyDisp.textContent = qty;
+    }
+
+    options.forEach(function (opt) {
+      opt.addEventListener('click', function () {
+        select(parseInt(opt.dataset.qty));
+      });
+    });
+
+    select(2);
+  })();
+  </script>
+
+  <!-- Multi-item configurator -->
+  <script>
+  (function () {
+    var COLORS = [];
+    var SIZES  = ['s', 'm', 'l', 'xl'];
+    var LABELS = { s: 'S', m: 'M', l: 'L', xl: 'XL' };
+
+    document.querySelectorAll('.color-swatch').forEach(function (btn) {
+      COLORS.push({
+        name: btn.dataset.colorName,
+        variants: JSON.parse(btn.dataset.variants),
+        bg: btn.querySelector('.swatch-dot').style.background
+      });
+    });
+
+    var container = document.getElementById('multi-config');
+    var cartBtn   = document.querySelector('.add-to-cart-link');
+    var buyNow    = document.querySelector('.buy-now-link');
+    var slots     = [];
+
+    function variantId(colorName, size) {
+      var c = COLORS.find(function (c) { return c.name === colorName; });
+      return c && c.variants[size] ? c.variants[size] : null;
+    }
+
+    function buildCartUrl() {
+      var parts = slots.map(function (s) {
+        var vid = variantId(s.color, s.size);
+        return vid ? (vid + ':1') : null;
+      }).filter(Boolean);
+      if (!parts.length) return '#';
+      return 'https://rova-9384.myshopify.com/cart/' + parts.join(',');
+    }
+
+    function updateButtons() {
+      var url = buildCartUrl();
+      if (cartBtn) cartBtn.href = url;
+      if (buyNow)  buyNow.href  = url;
+      var totalEl = document.getElementById('bundle-total-sale');
+      if (cartBtn && totalEl) cartBtn.textContent = 'Add to Cart — ' + totalEl.textContent.trim();
+    }
+
+    function getMainColor() {
+      var a = document.querySelector('.color-swatch.active');
+      return a ? a.dataset.colorName : (COLORS.length ? COLORS[0].name : '');
+    }
+    function getMainSize() {
+      var a = document.querySelector('.size-pill.active');
+      return a ? a.dataset.size : 's';
+    }
+
+    function renderSlots() {
+      container.innerHTML = '';
+
+      var heading = document.createElement('p');
+      heading.className = 'mc-heading';
+      heading.textContent = 'Customize each harness';
+      container.appendChild(heading);
+
+      slots.forEach(function (slot, idx) {
+        var wrap = document.createElement('div');
+        wrap.className = 'mc-slot';
+
+        // Header
+        var hdr    = document.createElement('div');
+        hdr.className = 'mc-slot-header';
+        var num    = document.createElement('span');
+        num.className = 'mc-slot-num';
+        num.textContent = 'Harness ' + (idx + 1);
+        var chosen = document.createElement('span');
+        chosen.className = 'mc-slot-chosen';
+        chosen.id = 'mc-chosen-' + idx;
+        chosen.textContent = slot.color + ' · ' + LABELS[slot.size];
+        hdr.appendChild(num);
+        hdr.appendChild(chosen);
+        wrap.appendChild(hdr);
+
+        // Colors
+        var colRow = document.createElement('div');
+        colRow.className = 'mc-slot-colors';
+        COLORS.forEach(function (c) {
+          var btn = document.createElement('button');
+          btn.className = 'mc-swatch' + (c.name === slot.color ? ' active' : '');
+          btn.style.background = c.bg;
+          btn.setAttribute('aria-label', c.name);
+          btn.dataset.slot  = idx;
+          btn.dataset.color = c.name;
+          btn.addEventListener('click', function () {
+            slots[idx].color = c.name;
+            container.querySelectorAll('.mc-swatch[data-slot="' + idx + '"]')
+              .forEach(function (b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+            var el = document.getElementById('mc-chosen-' + idx);
+            if (el) el.textContent = slots[idx].color + ' · ' + LABELS[slots[idx].size];
+            updateButtons();
+          });
+          colRow.appendChild(btn);
+        });
+        wrap.appendChild(colRow);
+
+        // Sizes
+        var sizeRow = document.createElement('div');
+        sizeRow.className = 'mc-slot-sizes';
+        SIZES.forEach(function (s) {
+          var btn = document.createElement('button');
+          btn.className = 'mc-size-pill' + (s === slot.size ? ' active' : '');
+          btn.textContent = LABELS[s];
+          btn.dataset.slot = idx;
+          btn.dataset.size = s;
+          btn.addEventListener('click', function () {
+            slots[idx].size = s;
+            container.querySelectorAll('.mc-size-pill[data-slot="' + idx + '"]')
+              .forEach(function (b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+            var el = document.getElementById('mc-chosen-' + idx);
+            if (el) el.textContent = slots[idx].color + ' · ' + LABELS[slots[idx].size];
+            updateButtons();
+          });
+          sizeRow.appendChild(btn);
+        });
+        wrap.appendChild(sizeRow);
+
+        container.appendChild(wrap);
+      });
+
+      updateButtons();
+    }
+
+    function showConfig(qty) {
+      var color = getMainColor();
+      var size  = getMainSize();
+      while (slots.length < qty) { slots.push({ color: color, size: size }); }
+      if (slots.length > qty) { slots.length = qty; }
+      renderSlots();
+      container.classList.add('open');
+    }
+
+    function hideConfig() {
+      container.classList.remove('open');
+      slots.length = 0;
+      // Restore single-variant URL so bundle JS regex stays clean
+      var swatch = document.querySelector('.color-swatch.active');
+      var pill   = document.querySelector('.size-pill.active');
+      if (swatch && pill) {
+        var vs  = JSON.parse(swatch.dataset.variants);
+        var vid = vs[pill.dataset.size];
+        if (vid) {
+          var url = 'https://rova-9384.myshopify.com/cart/' + vid + ':1';
+          if (cartBtn) cartBtn.href = url;
+          if (buyNow)  buyNow.href  = url;
+        }
+      }
+    }
+
+    document.querySelectorAll('.bundle-option').forEach(function (opt) {
+      opt.addEventListener('click', function () {
+        var qty = parseInt(opt.dataset.qty);
+        if (qty > 1) { showConfig(qty); } else { hideConfig(); }
+      });
+    });
+
+    // When main color picker changes, sync all slots
+    document.querySelectorAll('.color-swatch').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (!container.classList.contains('open')) return;
+        var color = btn.dataset.colorName;
+        slots.forEach(function (s) { s.color = color; });
+        renderSlots();
+      });
+    });
+
+    // When main size picker changes, sync all slots
+    document.querySelectorAll('.size-pill').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (!container.classList.contains('open')) return;
+        var size = btn.dataset.size;
+        slots.forEach(function (s) { s.size = size; });
+        renderSlots();
+      });
+    });
+
+    // Intercept Add to Cart before main.js when multi-config is open
+    if (cartBtn) {
+      cartBtn.addEventListener('click', function (e) {
+        if (!container.classList.contains('open')) return;
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        if (typeof addToCart === 'function' && typeof openCart === 'function') {
+          var name  = document.querySelector('.pdp-name')?.textContent?.trim() || 'Harness';
+          var price = parseFloat(document.querySelector('.pdp-price')?.textContent?.replace(/[^0-9.]/g, '') || '0');
+          var img   = document.getElementById('gallery-main-img')?.src || '';
+          slots.forEach(function (slot) {
+            if (!slot.vid) return;
+            var option = slot.color + (slot.size ? ' / ' + slot.size.toUpperCase() : '');
+            addToCart({ variantId: slot.vid, name: name, price: price, img: img, qty: 1, option: option });
+          });
+          if (typeof fbq === 'function') fbq('track', 'AddToCart');
+          openCart();
+        } else {
+          window.location.href = buildCartUrl();
+        }
+      }, true);
+    }
+
+    // Initialize for the pre-selected qty=2 bundle option
+    showConfig(2);
+  })();
+  </script>
 </body>
 </html>
 
