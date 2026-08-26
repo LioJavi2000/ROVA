@@ -19,7 +19,7 @@
   --section-pad: 96px;
   --container-max: 1320px;
   --container-pad: 40px;
-  --header-height: 68px;
+  --header-height: 80px;
   --announce-height: 52px;
 }
 
@@ -97,6 +97,7 @@ p { color: var(--bark); }
   height: var(--header-height);
   display: flex;
   align-items: center;
+  overflow: hidden;
 }
 
 .header-inner {
@@ -116,10 +117,10 @@ p { color: var(--bark); }
 }
 
 .header-logo img {
-  height: 44px;
+  height: 180px;
   width: auto;
   display: block;
-  mix-blend-mode: multiply;
+  mix-blend-mode: darken;
 }
 
 .header-nav {
@@ -1646,6 +1647,8 @@ footer {
 }
 
 /* === 25. RESPONSIVE BREAKPOINTS =============== */
+.ymal-controls { display: none; }
+
 @media (min-width: 768px) {
   .header-nav { display: flex; }
   .hamburger { display: none; }
@@ -2226,7 +2229,7 @@ footer {
   :root {
     --section-pad: 64px;
     --container-pad: 20px;
-    --header-height: 60px;
+    --header-height: 72px;
   }
 
   /* Hero */
@@ -2271,7 +2274,68 @@ footer {
   .pdp-grid { grid-template-columns: 1fr; gap: 48px; }
   .pdp-name { font-size: 26px; }
   .pdp-price { font-size: 22px; }
-  .ymal-grid { grid-template-columns: 1fr; }
+
+  /* Logo centered on mobile */
+  .header-inner { grid-template-columns: 1fr auto 1fr; }
+  .header-logo { grid-column: 2; display: flex; justify-content: center; }
+  .header-logo img { height: 150px; }
+
+  /* Gallery thumbnails — horizontal scroll strip */
+  .pdp-thumbnails {
+    display: flex;
+    overflow-x: auto;
+    gap: 8px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+  }
+  .pdp-thumbnails::-webkit-scrollbar { display: none; }
+  .pdp-thumb {
+    flex: 0 0 68px;
+    width: 68px;
+    min-width: 68px;
+    height: 68px;
+    scroll-snap-align: start;
+  }
+
+  /* YMAL — horizontal scroll carousel */
+  .ymal-grid {
+    display: flex;
+    overflow-x: auto;
+    gap: 16px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 8px;
+  }
+  .ymal-grid::-webkit-scrollbar { display: none; }
+  .ymal-grid .product-card {
+    flex: 0 0 220px;
+    min-width: 220px;
+    scroll-snap-align: start;
+  }
+  .ymal-controls {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .ymal-arrow-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--sand);
+    border: 1.5px solid var(--stone);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    color: var(--bark);
+    transition: background 0.15s;
+  }
+  .ymal-arrow-btn:active { background: var(--sand-dark); }
 
   /* Story */
   .story-intro { padding: 80px 0 56px; }
@@ -2377,3 +2441,68 @@ footer {
 }
 .privacy-modal-body h4:first-child { margin-top: 0; }
 .privacy-modal-body p { margin-bottom: 12px; color: #4a3a2e; }
+
+/* === 32. MARQUEE BANNER ======================== */
+.marquee-banner {
+  width: 100%;
+  background: #C4614A;
+  overflow: hidden;
+  height: 96px;
+  display: flex;
+  align-items: center;
+}
+.marquee-track {
+  display: flex;
+  white-space: nowrap;
+  animation: marquee-scroll 120s linear infinite;
+  will-change: transform;
+}
+.marquee-track span {
+  display: inline-block;
+  font-size: 26px;
+  font-weight: 900;
+  color: #F0E8DA;
+  text-transform: uppercase;
+  letter-spacing: 0.17em;
+  line-height: 1;
+  -webkit-text-stroke: 0.5px #F0E8DA;
+}
+@keyframes marquee-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation-play-state: paused; }
+}
+
+/* === 33. BRAND FAQ SECTION ===================== */
+.brand-faq-section {
+  background: var(--sand-dark);
+  padding: 80px 0;
+  text-align: center;
+}
+.brand-faq-section .accordion-item {
+  text-align: left;
+}
+.brand-faq-eyebrow {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--bark);
+  opacity: 0.5;
+  margin-bottom: 12px;
+}
+.brand-faq-title {
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 600;
+  color: var(--bark);
+  margin-bottom: 44px;
+  letter-spacing: -0.02em;
+}
+.brand-faq-section .accordion-header {
+  font-size: 17px;
+}
+.brand-faq-section .accordion-inner p {
+  font-size: 16px;
+}

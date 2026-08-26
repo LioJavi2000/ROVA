@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
   [initMobileNav, initAccordion, initColorSelector, initSizeSelector,
    initQuantitySelector, setActiveNav, initScrollFades, initGallery,
    initCart, initPrivacyModal, initReviewLikes, initReviewReadMore,
-   initWriteReview, updateReviewCount]
+   initWriteReview, updateReviewCount, initYmalCarousel]
   .forEach(fn => { try { fn(); } catch(e) { console.error(fn.name + ':', e); } });
 });
 
@@ -952,4 +952,31 @@ function renderQuickAddPanel() {
     closeQuickAdd();
     renderCartDrawer();
   });
+}
+
+/* ── YMAL Horizontal Carousel (mobile) ─────────── */
+function initYmalCarousel() {
+  if (window.innerWidth > 767) return;
+  const grid = document.querySelector('.ymal-grid');
+  if (!grid) return;
+
+  const controls = document.createElement('div');
+  controls.className = 'ymal-controls';
+
+  const prev = document.createElement('button');
+  prev.className = 'ymal-arrow-btn';
+  prev.setAttribute('aria-label', 'Previous');
+  prev.innerHTML = '&#8592;';
+
+  const next = document.createElement('button');
+  next.className = 'ymal-arrow-btn';
+  next.setAttribute('aria-label', 'Next');
+  next.innerHTML = '&#8594;';
+
+  controls.appendChild(prev);
+  controls.appendChild(next);
+  grid.parentNode.insertBefore(controls, grid);
+
+  prev.addEventListener('click', () => grid.scrollBy({ left: -236, behavior: 'smooth' }));
+  next.addEventListener('click', () => grid.scrollBy({ left: 236, behavior: 'smooth' }));
 }
