@@ -2281,7 +2281,7 @@ footer {
   .pdp-grid { grid-template-columns: 1fr; gap: 32px; max-width: 100%; }
   .pdp-name { font-size: 26px; }
   .pdp-price { font-size: 22px; }
-  .pdp-gallery-main { width: 70%; margin-left: auto; margin-right: auto; }
+  .pdp-gallery-main { width: 85%; margin-left: auto; margin-right: auto; }
   .pdp-gallery, .pdp-info { min-width: 0; max-width: 100%; }
 
   /* Logo centered on mobile */
