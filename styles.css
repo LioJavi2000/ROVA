@@ -624,24 +624,25 @@ footer {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: var(--sand);
-  border: 1px solid var(--stone);
+  background: transparent;
+  border: none;
   width: 40px;
   height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 20px;
   color: var(--bark);
   z-index: 2;
-  transition: background 0.15s ease;
+  transition: opacity 0.15s ease;
+  opacity: 0.7;
 }
 
-.gallery-arrow:hover { background: var(--sand-dark); }
-.gallery-arrow.prev { left: 12px; }
-.gallery-arrow.next { right: 12px; }
-.gallery-arrow:active { transform: translateY(-50%) scale(0.88); background: var(--sand-dark); }
+.gallery-arrow:hover { opacity: 1; }
+.gallery-arrow.prev { left: 8px; }
+.gallery-arrow.next { right: 8px; }
+.gallery-arrow:active { transform: translateY(-50%) scale(0.88); }
 
 #gallery-main-img { transition: opacity 0.18s ease; }
 
