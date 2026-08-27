@@ -97,7 +97,6 @@ p { color: var(--bark); }
   height: var(--header-height);
   display: flex;
   align-items: center;
-  overflow: hidden;
 }
 
 .header-inner {
@@ -109,6 +108,13 @@ p { color: var(--bark); }
   grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 32px;
+}
+
+.header-logo {
+  height: var(--header-height);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
 }
 
 .header-logo a {
