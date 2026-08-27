@@ -2278,7 +2278,7 @@ footer {
   /* Logo centered on mobile */
   .header-inner { grid-template-columns: 1fr auto 1fr; }
   .header-logo { grid-column: 2; display: flex; justify-content: center; }
-  .header-logo img { height: 150px; }
+  .header-logo img { width: 140px; height: auto; }
 
   /* Gallery thumbnails — horizontal scroll strip */
   .pdp-thumbnails {
