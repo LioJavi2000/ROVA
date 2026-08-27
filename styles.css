@@ -2280,7 +2280,7 @@ footer {
   .pdp-grid { grid-template-columns: 1fr; gap: 48px; }
   .pdp-name { font-size: 26px; }
   .pdp-price { font-size: 22px; }
-  .pdp-gallery-main { width: 50%; margin-left: auto; margin-right: auto; }
+  .pdp-gallery-main { width: 33%; margin-left: auto; margin-right: auto; }
 
   /* Logo centered on mobile */
   .header-inner { grid-template-columns: 1fr auto 1fr; }
