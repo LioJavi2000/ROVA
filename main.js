@@ -412,6 +412,7 @@ function initColorSelector() {
 
   swatches.forEach(swatch => {
     swatch.addEventListener('click', () => {
+      if (swatch.disabled) return;
       swatches.forEach(s => s.classList.remove('selected'));
       swatch.classList.add('selected');
 
